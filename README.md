@@ -15,11 +15,12 @@ Can obtain the `Value` at a index with `valueAt`
 
 Value hierarchy
 ---------------
-`Value`: base class, all values can be `resolve()`'d in the context of some `Spreadsheet`, which by default will simpily return the value itself. In addition all `Value`s should have a useful `toString` method  
+`Value`: base class, all values can be `refine()`'d in the context of some `Spreadsheet`, which by default will simpily return the value itself. In addition all `Value`s should have a useful `toString` method  
 `Number`: a decimal value, represented by a double  
 `StringValue`: a string value  
-`CellReference`: a value that holds a cell's row and column, and when it is `resolve()`'d it returns the value in that cell  
-`DeferredExpression`: a value that, when resolved, returns the evaluation of it's child expression  
+`CellReference`: a value that holds a cell's row and column, and when it is `refine()`'d it returns the value in that cell  
+`DeferredExpression`: a value that, when `refine()`'d, returns the evaluation of it's child expression  
+`ErrorValue`: a value that represents a error resulting from a evaluation/refinement
 
 Expression hierarchy
 --------------------
