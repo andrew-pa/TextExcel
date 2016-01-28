@@ -19,7 +19,8 @@ public class Spreadsheet {
 									// a column-store
 	}
 
-	public void print() {
+	public String toString() {
+		String returnedValue = "";
 		for (int r = 0; r < cells[0].length + 1; ++r) {
 			for (int c = 0; c < cells.length + 1; ++c) {
 				if (r == 0) {
@@ -29,6 +30,12 @@ public class Spreadsheet {
 				}
 			}
 		}
+		
+		return returnedValue;
+	}
+	
+	public void print(){
+		System.out.print(this.toString());
 	}
 
 	public void setValue(char c, int r, Value rv) {
