@@ -7,4 +7,6 @@ import pw.qxczv.TextExcel.Spreadsheet;
  */
 public abstract class Value implements Comparable<Value> {
     public Value resolve(Spreadsheet s) { return this; }
+    
+    public String toCellRepString(Spreadsheet s) { return toString(); }
 }

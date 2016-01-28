@@ -20,4 +20,9 @@ public class CellReference extends Value {
 		return -1;
 	}
 
+	@Override
+	public String toString() {
+		return colIdx + "" + rowIdx;
+	}
+	
 }

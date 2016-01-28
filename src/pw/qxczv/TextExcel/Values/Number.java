@@ -11,4 +11,9 @@ public class Number extends Value {
 		if(on == null) return -1; //values of different types are always less
 		return Double.compare(v, on.v);
 	}
+	
+	@Override
+	public String toString() {
+		return Double.toString(v);
+	}
 }

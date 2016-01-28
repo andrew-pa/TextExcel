@@ -1,5 +1,7 @@
 package pw.qxczv.TextExcel.Values;
 
+import pw.qxczv.TextExcel.Spreadsheet;
+
 public class ErrorValue extends Value {
 	public Exception err;
 	
@@ -16,4 +18,13 @@ public class ErrorValue extends Value {
 		return -1; //No ordering for Errors, they're all bad
 	}
 
+	@Override
+	public String toString() {
+		return "! Error: " + err.getMessage() + "!";
+	}
+	
+	@Override 
+	public String toCellRepString(Spreadsheet s) {
+		return "ERROR!";
+	}
 }

@@ -21,4 +21,13 @@ public class DeferredExpression extends Value {
 		return -1;
 	}
 
+	@Override
+	public String toString() {
+		return xpr.toString();
+	}
+	
+	@Override
+	public String toCellRepString(Spreadsheet s) {
+		return resolve(s).toCellRepString(s);
+	}
 }

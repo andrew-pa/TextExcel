@@ -11,5 +11,9 @@ public class StringValue extends Value {
 		if(os == null) return -1;
 		return v.compareTo(os.v);
 	}
-
+	
+	@Override
+	public String toString() {
+		return "\"" + v + "\"";
+	}
 }
