@@ -23,4 +23,8 @@ public class Spreadsheet {
     		}
     	}
     }
+
+	public void setValue(char c, int r, Value rv) {
+		cells[65-c][r] = rv; //sad reality is that sometimes you just need a setter, but these aren't so bad because they provide translation between col char names and indices
+	}
 }
