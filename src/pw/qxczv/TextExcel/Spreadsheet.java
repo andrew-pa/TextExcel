@@ -28,7 +28,15 @@ public class Spreadsheet {
 				} else if (r == 0) {
 					returnedValue += "     " + ((char) (c + 64)) + "      |";
 				} else if (c == 0) {
-					returnedValue += "     " + r + "      |";
+					String ofR = r + "";
+					for(int i = 0;i < (6 - ofR.length()/2) - 1; i ++){
+						returnedValue += " ";
+					}
+					returnedValue += ofR;
+					for(int i = 0;i < (6 - ofR.length()/2); i ++){
+						returnedValue += " ";
+					}
+					returnedValue += "|";
 				} else {
 					if(cells[c - 1][r - 1] == null){ returnedValue += format("") + "|"; }
 					else{ returnedValue += format(cells[c - 1][r - 1].toCellRepString(this)) + "|"; }
@@ -48,7 +56,8 @@ public class Spreadsheet {
 	public String format(String s){
 		//This will cap the string at 12 characters
 		if(s.length() > 12){
-			s = s.substring(0,13);
+			s = s.substring(0,12);
+			s += ">";
 		}
 		while(s.length() < 12){
 			s += " ";
@@ -66,5 +75,13 @@ public class Spreadsheet {
 								// setter, but these aren't so bad because they
 								// provide translation between col char names
 								// and indices
+	}
+
+	public void clear() {
+		for(int c = 0; c < cells.length; c ++){
+			for(int r = 0; r < cells[c].length; r ++){
+				cells[c][r] = null;
+			}
+		}
 	}
 }
