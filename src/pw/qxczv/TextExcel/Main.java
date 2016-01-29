@@ -8,6 +8,8 @@ import pw.qxczv.TextExcel.AST.Parser;
 public class Main {
 
     public static void main(String[] args) {
+    	Spreadsheet s = new Spreadsheet(5,5);
+    	s.print();
     	Scanner s = new Scanner(System.in);
     	Parser p = new Parser();
     	while(s.hasNextLine()) {
