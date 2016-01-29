@@ -24,7 +24,9 @@ public class Main {
     		} else {
 	    		try {
 					Expression x = p.parse(ln);
-					System.out.println(x);
+					if(x != null){
+						System.out.println(x);
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -29,7 +29,7 @@ public class Spreadsheet {
 					returnedValue += "     " + ((char) (c + 64)) + "      |";
 				} else if (c == 0) {
 					String ofR = r + "";
-					for(int i = 0;i < (6 - ofR.length()/2) - 1; i ++){
+					for(int i = 0;i < (6 - ofR.length()/2) - ofR.length()%2; i ++){
 						returnedValue += " ";
 					}
 					returnedValue += ofR;
