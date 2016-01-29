@@ -26,18 +26,17 @@ public class Spreadsheet {
 				if(r == 0 && c == 0){
 					returnedValue += "            |";
 				} else if (r == 0) {
-					returnedValue += "|     " + ((char) c + 65) + "      |";
+					returnedValue += "     " + ((char) (c + 64)) + "      |";
 				} else if (c == 0) {
-					returnedValue += "     " + r + "      ";
+					returnedValue += "     " + r + "      |";
 				} else {
-					returnedValue += "|" +
-							//Add Cell Value
-							"|";
+					if(cells[c - 1][r - 1] == null){ returnedValue += format("") + "|"; }
+					else{ returnedValue += format(cells[c - 1][r - 1].toCellRepString(this)) + "|"; }
 				}
 			}
 			//New Line:
 			returnedValue +="\n";
-			for(int i = 0; i < cells.length; i ++){
+			for(int i = 0; i < cells.length + 1; i ++){
 				returnedValue += "------------+";
 			}
 			returnedValue +="\n";
@@ -46,9 +45,21 @@ public class Spreadsheet {
 		return returnedValue;
 	}
 	
+	public String format(String s){
+		//This will cap the string at 12 characters
+		if(s.length() > 12){
+			s = s.substring(0,13);
+		}
+		while(s.length() < 12){
+			s += " ";
+		}
+		return s;
+	}
+	
 	public void print(){
 		System.out.print(this.toString());
 	}
+	
 
 	public void setValue(char c, int r, Value rv) {
 		cells[65 - c][r] = rv; // sad reality is that sometimes you just need a
