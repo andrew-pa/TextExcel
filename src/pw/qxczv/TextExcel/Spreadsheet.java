@@ -23,12 +23,24 @@ public class Spreadsheet {
 		String returnedValue = "";
 		for (int r = 0; r < cells[0].length + 1; ++r) {
 			for (int c = 0; c < cells.length + 1; ++c) {
-				if (r == 0) {
-					// print column names
+				if(r == 0 && c == 0){
+					returnedValue += "            |";
+				} else if (r == 0) {
+					returnedValue += "|     " + ((char) c + 65) + "      |";
 				} else if (c == 0) {
-					// print row names
+					returnedValue += "     " + r + "      ";
+				} else {
+					returnedValue += "|" +
+							//Add Cell Value
+							"|";
 				}
 			}
+			//New Line:
+			returnedValue +="\n";
+			for(int i = 0; i < cells.length; i ++){
+				returnedValue += "------------+";
+			}
+			returnedValue +="\n";
 		}
 		
 		return returnedValue;
