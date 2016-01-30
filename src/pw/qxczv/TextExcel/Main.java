@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 import pw.qxczv.TextExcel.AST.Expression;
 import pw.qxczv.TextExcel.AST.Parser;
+import pw.qxczv.TextExcel.Values.CellReference;
+import pw.qxczv.TextExcel.Values.Value;
 
 public class Main {
 
@@ -16,7 +18,7 @@ public class Main {
     		if(ln.equals("print")){
     			s.print();
     		}
-    		else if (ln.equals("quit")){
+    		else if (ln.equals("exit")){
     			break;
     		} 
     		else if (ln.equals("clear")){
@@ -24,8 +26,11 @@ public class Main {
     		} else {
 	    		try {
 					Expression x = p.parse(ln);
-					if(x != null){
-						System.out.println(x);
+					Value v = x.evaluate(s);
+					if(v != null) {
+						Value r = v.resolve(s);
+						if(r == null) System.out.println("<empty>"); //silly special cases
+						else System.out.println(v.resolve(s));
 					}
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -1,5 +1,7 @@
 package pw.qxczv.TextExcel.Values;
 
+import pw.qxczv.TextExcel.Spreadsheet;
+
 public class StringValue extends Value {
 	public String v;
 	
@@ -15,5 +17,10 @@ public class StringValue extends Value {
 	@Override
 	public String toString() {
 		return "\"" + v + "\"";
+	}
+	
+	@Override
+	public String toCellRepString(Spreadsheet s) {
+		return v;
 	}
 }

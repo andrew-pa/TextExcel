@@ -15,7 +15,7 @@ public class Spreadsheet {
 	}
 
 	public Value valueAt(char c, int r) {
-		return cells[65 - c][r]; // unfortunate reality is that a Spreadsheet is
+		return cells[c-65][r-1]; // unfortunate reality is that a Spreadsheet is
 									// a column-store
 	}
 
@@ -55,8 +55,8 @@ public class Spreadsheet {
 	
 	public String format(String s){
 		//This will cap the string at 12 characters
-		if(s.length() > 12){
-			s = s.substring(0,12);
+		if(s.length() > 11){
+			s = s.substring(0,11);
 			s += ">";
 		}
 		while(s.length() < 12){
@@ -71,7 +71,7 @@ public class Spreadsheet {
 	
 
 	public void setValue(char c, int r, Value rv) {
-		cells[65 - c][r] = rv; // sad reality is that sometimes you just need a
+		cells[c-65][r-1] = rv; // sad reality is that sometimes you just need a
 								// setter, but these aren't so bad because they
 								// provide translation between col char names
 								// and indices

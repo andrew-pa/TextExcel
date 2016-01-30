@@ -37,7 +37,7 @@ public class Parser {
     boolean endOfTokenp() {
         char c = currChar();
         return !moreCharp() || Character.isWhitespace(c)
-                || c == '+' || c == '-' || c == '*' || c == '/' || c == '$' 
+                || c == '+' || c == '-' || c == '*' || c == '/' || c == '=' 
                 || c == '(' || c == ')' || c == ':' || c == '[' || c == ']' || c == ',' || c == '}';
     }
 
@@ -65,19 +65,59 @@ public class Parser {
     		nextChar();
     	} else if(Character.isDigit(currChar()) || currChar() == '-' && Character.isDigit(peekChar())) {
     		StringBuffer sb = new StringBuffer();
+    		sb.append(currChar()); nextChar();
     		while(!endOfTokenp()) {
     			sb.append(currChar());
     			nextChar();
     		}
-    		return new ValueTerm(new Number(Double.parseDouble(sb.toString())));
+    		xp = new ValueTerm(new Number(Double.parseDouble(sb.toString())));
+    	} else if(currChar() == '"') {
+    		nextChar();
+    		StringBuffer sb = new StringBuffer();
+    		while(currChar() != '"') {
+    			sb.append(currChar());
+    			nextChar();
+    		}
+    		nextChar();
+    		xp = new ValueTerm(new StringValue(sb.toString()));
+    	} else {
+    		//grab a token
+    		StringBuffer sb = new StringBuffer();
+    		while(!endOfTokenp()) {
+    			sb.append(currChar());
+    			nextChar();
+    		}
+    		if(sb.length() > 1 && Character.isLetter(sb.charAt(0)) && Character.isDigit(sb.charAt(1))) {
+    			//only handle CellReferences to Columns A-Z for now
+    			xp = new ValueTerm(new CellReference(Character.toUpperCase(sb.charAt(0)), Integer.parseInt(sb.substring(1))));
+    		}
     	}
-    	return null;
+    	nextWhitespace();
+    	if(currChar() == '*') {
+    		nextChar();
+    		xp = new MulTerm(xp, parseTerm());
+    	} else if(currChar() == '/') {
+    		nextChar();
+    		xp = new DivTerm(xp, parseTerm());
+    	}
+    	
+    	return xp;
     }
     
     Expression parse() throws Exception {
     	nextWhitespace();
-    	
     	Expression xp = parseTerm();
+    	nextWhitespace();
+    	if(currChar() == '+') {
+    		nextChar(); 
+    		xp = new AddExpression(xp, parse());
+    	} else if(currChar() == '-') {
+    		nextChar();
+    		xp = new SubExpression(xp, parse());
+    	} else if(currChar() == '=') {
+    		nextChar();
+    		xp = new AssignmentExpression(xp, parse());
+    	}
     	return xp;
     }
 }

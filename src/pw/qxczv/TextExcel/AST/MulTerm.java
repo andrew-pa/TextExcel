@@ -23,4 +23,8 @@ public class MulTerm extends Expression {
 		return new Number(lv.v * rv.v);
 	}
 
+	@Override
+	public String toString() {
+		return left + " * " + right;
+	}
 }

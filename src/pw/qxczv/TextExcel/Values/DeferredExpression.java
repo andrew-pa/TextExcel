@@ -12,7 +12,7 @@ public class DeferredExpression extends Value {
 	
 	@Override
 	public Value resolve(Spreadsheet s) {
-		return xpr.evaluate(s);
+		return xpr.evaluate(s).resolve(s);
 	}
 	
 	@Override

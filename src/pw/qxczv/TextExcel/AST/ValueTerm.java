@@ -14,4 +14,8 @@ public class ValueTerm extends Term {
 		return v;
 	}
 
+	@Override
+	public String toString() {
+		return v.toString();
+	}
 }

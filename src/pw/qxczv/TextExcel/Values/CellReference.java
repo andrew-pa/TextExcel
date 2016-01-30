@@ -2,7 +2,7 @@ package pw.qxczv.TextExcel.Values;
 
 import pw.qxczv.TextExcel.Spreadsheet;
 
-public class CellReference extends Value {
+public class CellReference extends LValue {
 	public char colIdx; public int rowIdx;
 	
 	public CellReference(char c, int r) {
@@ -11,7 +11,14 @@ public class CellReference extends Value {
 	
 	@Override
 	public Value resolve(Spreadsheet s) {
-		return s.valueAt(colIdx, rowIdx);
+		Value v = s.valueAt(colIdx, rowIdx);
+		if(v == null) return null;		
+		return v.resolve(s);
+	}
+	
+	@Override
+	public void assign(Spreadsheet s, Value v) {
+		s.setValue(colIdx, rowIdx, v);
 	}
 	
 	@Override
