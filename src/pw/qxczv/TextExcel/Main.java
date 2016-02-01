@@ -19,9 +19,11 @@ public class Main {
     			s.print();
     		}
     		else if (ln.equals("exit")){
+    			System.out.print("--Goodbye--");
     			break;
     		} 
     		else if (ln.equals("clear")){
+    			System.out.println("--Cleared--");
     			s.clear();
     		} else {
 	    		try {
@@ -33,6 +35,7 @@ public class Main {
 						else System.out.println(v.resolve(s));
 					}
 				} catch (Exception e) {
+					//Change when ship
 					e.printStackTrace();
 				}
     		}
