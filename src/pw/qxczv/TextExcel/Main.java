@@ -13,6 +13,7 @@ public class Main {
     	Spreadsheet s = new Spreadsheet(7,12);
     	Scanner userInput = new Scanner(System.in);
     	Parser p = new Parser();
+    	System.out.println("Enter Command->");
     	while(userInput.hasNextLine()) {
     		String ln = userInput.nextLine();
     		if(ln.equals("print")){
@@ -39,7 +40,7 @@ public class Main {
 					e.printStackTrace();
 				}
     		}
-    		
+    		System.out.println("Enter Command->");
     	}
     	
     	userInput.close();
