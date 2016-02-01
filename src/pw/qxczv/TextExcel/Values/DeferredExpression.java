@@ -23,7 +23,7 @@ public class DeferredExpression extends Value {
 
 	@Override
 	public String toString() {
-		return xpr.toString();
+		return "( " + xpr.toString() + " )";
 	}
 	
 	@Override

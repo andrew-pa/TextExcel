@@ -30,9 +30,15 @@ public class Main {
 					Expression x = p.parse(ln);
 					Value v = x.evaluate(s);
 					if(v != null) {
-						Value r = v.resolve(s);
-						if(r == null) System.out.println("<empty>"); //silly special cases
-						else System.out.println(v.resolve(s));
+						if(v.getClass() == CellReference.class) {
+							Value nv = ((CellReference)v).rawDeref(s);
+							System.out.println(v.toString() + " = " + ((nv == null) ? "<empty>" : nv.toString())) ;
+						}
+						else {
+							Value r = v.resolve(s);
+							if(r == null) System.out.println("<empty>"); //silly special cases
+							else System.out.println(v.resolve(s));
+						}
 					}
 				} catch (Exception e) {
 					//Change when ship

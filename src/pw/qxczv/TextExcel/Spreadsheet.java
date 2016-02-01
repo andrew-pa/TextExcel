@@ -1,5 +1,7 @@
 package pw.qxczv.TextExcel;
 
+import java.util.HashMap;
+
 import pw.qxczv.TextExcel.Values.Value;
 
 /**
@@ -7,11 +9,11 @@ import pw.qxczv.TextExcel.Values.Value;
  */
 public class Spreadsheet {
 	Value[/* columns */][/* rows */] cells;
+	public HashMap<String, Value> globalValues;
 
 	public Spreadsheet(int col, int row) {
-
 		cells = new Value[col][row];
-
+		globalValues = new HashMap<>();
 	}
 
 	public Value valueAt(char c, int r) {
