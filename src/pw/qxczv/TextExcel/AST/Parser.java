@@ -15,6 +15,14 @@ public class Parser {
 	}
 	
 //--private parser stuff------------------------------------------------
+	/* 	AST:
+	 	<expr> := <term> | <expr> + <expr> | <expr> - <expr> | '['<expr>']'
+				| <id> '=' <expr> | <literal> (<expr>' ')+
+		<id> :=  #cell_ref | #name
+		<literal> := #number | #string | <id> | '(' <expr> ')' | '{' ('|' (#name',')+ '|') <expr> '}'
+		<term> := <literal> | <expr> * <expr> | <expr> / <expr>
+	*/
+	
     char nextChar() {
         if(!moreCharp()) return '\0';
         return inp.charAt(i++);
@@ -87,10 +95,7 @@ public class Parser {
     			sb.append(currChar());
     			nextChar();
     		}
-    		if(sb.length() > 1 && Character.isLetter(sb.charAt(0)) && Character.isDigit(sb.charAt(1))) {
-    			//only handle CellReferences to Columns A-Z for now
-    			xp = new ValueTerm(new CellReference(Character.toUpperCase(sb.charAt(0)), Integer.parseInt(sb.substring(1))));
-    		}
+			xp = new Identifier(sb.toString());
     	}
     	nextWhitespace();
     	if(currChar() == '*') {

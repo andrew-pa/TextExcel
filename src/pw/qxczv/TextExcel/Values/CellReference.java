@@ -16,6 +16,10 @@ public class CellReference extends LValue {
 		return v.resolve(s);
 	}
 	
+	public Value rawDeref(Spreadsheet s) {
+		return s.valueAt(colIdx, rowIdx);
+	}
+	
 	@Override
 	public void assign(Spreadsheet s, Value v) {
 		s.setValue(colIdx, rowIdx, v);
