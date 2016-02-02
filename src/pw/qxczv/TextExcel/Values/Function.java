@@ -16,10 +16,10 @@ public class Function extends Value {
 		body = b;
 	}
 	
-	public Value apply(Spreadsheet s, List<Value> args) {
+	public Value apply(Spreadsheet s, List<Expression> args) {
 		HashMap<String,Value> iva = new HashMap<>();
 		for(int i = 0; i < argnames.size(); ++i) {
-			iva.put(argnames.get(i), args.get(i));
+			iva.put(argnames.get(i), args.get(i).evaluate(s).resolve(s));
 		}
 		s.pushScope(iva);
 		Value v = body.evaluate(s).resolve(s);

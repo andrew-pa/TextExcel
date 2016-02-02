@@ -1,0 +1,40 @@
+package pw.qxczv.TextExcel;
+import java.util.ArrayList;
+import java.util.List;
+
+import pw.qxczv.TextExcel.AST.Expression;
+import pw.qxczv.TextExcel.Values.Function;
+import pw.qxczv.TextExcel.Values.LValue;
+import pw.qxczv.TextExcel.Values.Value;
+
+public class BuiltinFunctions {
+
+	static class PrintFunc extends Function {
+		public PrintFunc() {
+			super(new ArrayList<String>(),null);
+		}
+		@Override
+		public Value apply(Spreadsheet s, List<Expression> args) {
+			s.print();
+			return null;
+		}
+	}
+	static class ClearFunc extends Function {
+		public ClearFunc() {
+			super(new ArrayList<String>(),null);
+		}
+		@Override
+		public Value apply(Spreadsheet s, List<Expression> args) {
+			if(args.size() > 0) {
+				LValue v = (LValue)(args.get(0).evaluate(s));
+				v.assign(s, null);
+			}
+			else s.clear();
+			return null;
+		}
+	}
+	public static void apply(Spreadsheet s) {
+		s.setValue("print", new PrintFunc());
+		s.setValue("clear", new ClearFunc());
+	}
+}

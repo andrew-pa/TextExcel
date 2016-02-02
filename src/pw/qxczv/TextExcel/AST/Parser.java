@@ -15,7 +15,7 @@ public class Parser {
 	public Expression parse(String s) throws Exception {
 		inp = s;
 		i = 0;
-		return parse();
+		return parse(true);
 	}
 	
 //--private parser stuff------------------------------------------------
@@ -48,7 +48,8 @@ public class Parser {
 
     boolean endChar(char c) {
     	return c == '+' || c == '-' || c == '*' || c == '/' || c == '=' 
-                || c == '(' || c == ')' || c == ':' || c == '[' || c == ']' || c == ',' || c == '{' || c == '|' || c == '}';
+                || c == '(' || c == ')' || c == ':' || c == '[' || c == ']' 
+                || c == ',' || c == '{' || c == '|' || c == '}' || c == '$';
     }
     boolean endOfExprp() {
         char c = currChar();
@@ -70,14 +71,14 @@ public class Parser {
     	if(currChar() == '(') {
     		nextChar();
     		nextWhitespace();
-    		Term v = new ValueTerm(new DeferredExpression(parse()));
+    		Term v = new ValueTerm(new DeferredExpression(parse(true)));
     		nextWhitespace();
     		assert currChar() == ')';
     		nextChar();
     		return v;
     	} else if(currChar() == '[') {
     		nextChar();
-    		xp = parse();
+    		xp = parse(true);
     		nextWhitespace();
     		assert currChar() == ']';
     		nextChar();
@@ -101,7 +102,7 @@ public class Parser {
     			nextChar();
     			nextWhitespace();
     		}
-    		xp = new ValueTerm(new Function(an, parse()));
+    		xp = new ValueTerm(new Function(an, parse(true)));
     		nextWhitespace();
     		assert currChar() == '}';
     		nextChar();
@@ -144,25 +145,25 @@ public class Parser {
     	return xp;
     }
     
-    Expression parse() throws Exception {
+    Expression parse(boolean allowFuncInk) throws Exception {
     	nextWhitespace();
     	Expression xp = parseTerm();
     	nextWhitespace();
     	if(currChar() == '+') {
     		nextChar(); 
-    		xp = new AddExpression(xp, parse());
+    		xp = new AddExpression(xp, parse(true));
     	} else if(currChar() == '-') {
     		nextChar();
-    		xp = new SubExpression(xp, parse());
+    		xp = new SubExpression(xp, parse(true));
     	} else if(currChar() == '=') {
     		nextChar();
-    		xp = new AssignmentExpression(xp, parse());
+    		xp = new AssignmentExpression(xp, parse(true));
     	}
-    	if(moreCharp() && !endOfTokenp()) {
+    	if(allowFuncInk && moreCharp() && !endOfTokenp()) {
     		LinkedList<Expression> args = new LinkedList<>();
     		while(!endOfExprp()) {
     			nextWhitespace();
-    			args.push(parse());
+    			args.add(parse(false));
     		}
     		xp = new FunctionInvocationExpression(xp, args);
     	}

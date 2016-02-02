@@ -17,6 +17,7 @@ public class Spreadsheet {
 		cells = new Value[col][row];
 		globalValues = new LinkedList<>();
 		globalValues.add(new HashMap<>());
+		BuiltinFunctions.apply(this);
 	}
 
 	public Value valueAt(char c, int r) {
@@ -36,7 +37,7 @@ public class Spreadsheet {
 				s.put(name, v);
 				return;
 			}
-		globalValues.getLast().put(name, v); //add the value to the current, lowest scope
+		globalValues.getFirst().put(name, v); //add the value to the current, lowest scope
 	}
 	public void pushScope(HashMap<String, Value> initialValues) {
 		globalValues.push(initialValues);

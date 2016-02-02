@@ -19,9 +19,7 @@ public class FunctionInvocationExpression extends Expression {
 	@Override
 	public Value evaluate(Spreadsheet s) {
 		Function F = (Function)(func.evaluate(s).resolve(s));
-		ArrayList<Value> vargs = new ArrayList<>();
-		for(Expression x : args) vargs.add(x.evaluate(s).resolve(s));
-		return F.apply(s, vargs);
+		return F.apply(s, args);
 	}
 	
 	@Override

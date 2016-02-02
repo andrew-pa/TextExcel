@@ -18,17 +18,11 @@ public class Main {
     	while(true) {
     		System.out.print("> ");
     		String ln = userInput.nextLine();
-    		if(ln.equals("print")){
-    			s.print();
-    		}
-    		else if (ln.equals("exit")){
+    		if (ln.equals("exit")){
     			System.out.print("--Goodbye--");
     			break;
     		} 
-    		else if (ln.equals("clear")){
-    			System.out.println("--Cleared--");
-    			s.clear();
-    		} else {
+    		else {
 	    		try {
 					Expression x = p.parse(ln);
 					Value v = x.evaluate(s);
@@ -41,8 +35,9 @@ public class Main {
 							Value r = v.resolve(s);
 							
 							if(r == null) System.out.println("<empty>"); //silly special cases
-							else if(r.getClass() == Function.class) {
-								Value rs = ((Function)r).apply(s, new ArrayList<Value>());
+							else if((r.getClass() == Function.class || r.getClass().getSuperclass() == Function.class) &&
+									((Function)r).argnames.size() == 0) {
+								Value rs = ((Function)r).apply(s, new ArrayList<Expression>());
 								if(rs != null) System.out.println(rs);
 							}
 							else System.out.println(v.resolve(s));
