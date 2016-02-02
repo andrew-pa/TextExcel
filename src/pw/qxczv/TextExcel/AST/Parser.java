@@ -1,5 +1,9 @@
 package pw.qxczv.TextExcel.AST;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 import pw.qxczv.TextExcel.Values.*;
 import pw.qxczv.TextExcel.Values.Number;
 
@@ -42,11 +46,18 @@ public class Parser {
         return inp.charAt(i);
     }
 
+    boolean endChar(char c) {
+    	return c == '+' || c == '-' || c == '*' || c == '/' || c == '=' 
+                || c == '(' || c == ')' || c == ':' || c == '[' || c == ']' || c == ',' || c == '{' || c == '|' || c == '}';
+    }
+    boolean endOfExprp() {
+        char c = currChar();
+        return !moreCharp() 
+                || endChar(c);
+    }
     boolean endOfTokenp() {
         char c = currChar();
-        return !moreCharp() || Character.isWhitespace(c)
-                || c == '+' || c == '-' || c == '*' || c == '/' || c == '=' 
-                || c == '(' || c == ')' || c == ':' || c == '[' || c == ']' || c == ',' || c == '}';
+        return !moreCharp() || Character.isWhitespace(c) || endChar(c);
     }
 
     boolean moreCharp() {
@@ -64,12 +75,35 @@ public class Parser {
     		assert currChar() == ')';
     		nextChar();
     		return v;
-    	}
-    	else if(currChar() == '[') {
+    	} else if(currChar() == '[') {
     		nextChar();
     		xp = parse();
     		nextWhitespace();
     		assert currChar() == ']';
+    		nextChar();
+    	} else if(currChar() == '{') {
+    		nextChar();
+    		nextWhitespace();
+    		ArrayList<String> an = new ArrayList<>();
+    		if(currChar() == '|') {
+    			nextChar();
+				StringBuffer sb = new StringBuffer();
+    			while(currChar() != '|') {
+        			nextWhitespace();
+    	    		while(!endOfTokenp()) {
+    	    			sb.append(currChar());
+    	    			nextChar();
+    	    		}
+    	    		an.add(sb.toString());
+    	    		sb.setLength(0);
+    			}
+    			assert currChar() == '|';
+    			nextChar();
+    			nextWhitespace();
+    		}
+    		xp = new ValueTerm(new Function(an, parse()));
+    		nextWhitespace();
+    		assert currChar() == '}';
     		nextChar();
     	} else if(Character.isDigit(currChar()) || currChar() == '-' && Character.isDigit(peekChar())) {
     		StringBuffer sb = new StringBuffer();
@@ -96,6 +130,7 @@ public class Parser {
     			nextChar();
     		}
 			xp = new Identifier(sb.toString());
+			
     	}
     	nextWhitespace();
     	if(currChar() == '*') {
@@ -122,6 +157,14 @@ public class Parser {
     	} else if(currChar() == '=') {
     		nextChar();
     		xp = new AssignmentExpression(xp, parse());
+    	}
+    	if(moreCharp() && !endOfTokenp()) {
+    		LinkedList<Expression> args = new LinkedList<>();
+    		while(!endOfExprp()) {
+    			nextWhitespace();
+    			args.push(parse());
+    		}
+    		xp = new FunctionInvocationExpression(xp, args);
     	}
     	return xp;
     }

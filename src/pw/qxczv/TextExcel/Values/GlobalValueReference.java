@@ -16,12 +16,12 @@ public class GlobalValueReference extends LValue {
 	
 	@Override
 	public Value resolve(Spreadsheet s) {
-		return s.globalValues.get(name);
+		return s.valueFor(name);
 	}
 
 	@Override
 	public void assign(Spreadsheet s, Value v) {
-		s.globalValues.put(name, v);
+		s.setValue(name, v);
 	}
 
 	@Override
