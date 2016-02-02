@@ -15,12 +15,14 @@ public class SubExpression extends Expression {
 	
 	@Override
 	public Value evaluate(Spreadsheet s) {
+		try{
 		Number lv = (Number)(left.evaluate(s).resolve(s));
 		Number rv = (Number)(right.evaluate(s).resolve(s));
-		if(lv == null || rv == null) {
-			return new ErrorValue("Cannot subtract non-numeric values!");
-		}
 		return new Number(lv.v - rv.v);
+		} catch (Exception e){
+			System.out.println("Values cannot be evaluated");
+			return new ErrorValue(e);
+		}
 	}
 
 	@Override
