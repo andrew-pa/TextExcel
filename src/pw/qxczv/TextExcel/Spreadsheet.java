@@ -78,6 +78,10 @@ public class Spreadsheet {
 								// provide translation between col char names
 								// and indices
 	}
+	
+	public void clear(char c, int r){
+		cells[c-65][r-1] = null;
+	}
 
 	public void clear() {
 		for(int c = 0; c < cells.length; c ++){
