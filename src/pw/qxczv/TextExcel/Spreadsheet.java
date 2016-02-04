@@ -1,6 +1,8 @@
 package pw.qxczv.TextExcel;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import pw.qxczv.TextExcel.Values.Value;
 
@@ -9,16 +11,39 @@ import pw.qxczv.TextExcel.Values.Value;
  */
 public class Spreadsheet {
 	Value[/* columns */][/* rows */] cells;
-	public HashMap<String, Value> globalValues;
+	LinkedList<HashMap<String, Value>> globalValues;
 
 	public Spreadsheet(int col, int row) {
 		cells = new Value[col][row];
-		globalValues = new HashMap<>();
+		globalValues = new LinkedList<>();
+		globalValues.add(new HashMap<>());
+		BuiltinFunctions.apply(this);
 	}
 
 	public Value valueAt(char c, int r) {
 		return cells[c-65][r-1]; // unfortunate reality is that a Spreadsheet is
 									// a column-store
+	}
+	
+	public Value valueFor(String name) {
+		for(HashMap<String,Value> s : globalValues)
+			if(s.containsKey(name))
+				return s.get(name);
+		return null;
+	}
+	public void setValue(String name, Value v) {
+		for(HashMap<String,Value> s : globalValues) //if we've already added this in a higher scope, set that value instead
+			if(s.containsKey(name)) {
+				s.put(name, v);
+				return;
+			}
+		globalValues.getFirst().put(name, v); //add the value to the current, lowest scope
+	}
+	public void pushScope(HashMap<String, Value> initialValues) {
+		globalValues.push(initialValues);
+	}
+	public void popScope() {
+		globalValues.pop();
 	}
 
 	public String toString() {
@@ -79,7 +104,11 @@ public class Spreadsheet {
 								// and indices
 	}
 	
+<<<<<<< HEAD
 	public void clearValue(char c, int r){
+=======
+	public void clear(char c, int r){
+>>>>>>> branch 'master' of https://github.com/andrew-pa/TextExcel.git
 		cells[c-65][r-1] = null;
 	}
 
