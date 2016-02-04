@@ -103,12 +103,7 @@ public class Spreadsheet {
 								// provide translation between col char names
 								// and indices
 	}
-	
-<<<<<<< HEAD
-	public void clearValue(char c, int r){
-=======
 	public void clear(char c, int r){
->>>>>>> branch 'master' of https://github.com/andrew-pa/TextExcel.git
 		cells[c-65][r-1] = null;
 	}
 

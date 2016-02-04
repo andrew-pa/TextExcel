@@ -15,13 +15,8 @@ public class Main {
     	Spreadsheet s = new Spreadsheet(7,12);
     	Scanner userInput = new Scanner(System.in);
     	Parser p = new Parser();
-<<<<<<< HEAD
-    	System.out.println("Enter Command->");
-    	while(userInput.hasNextLine()) {
-=======
     	while(true) {
     		System.out.print("> ");
->>>>>>> branch 'master' of https://github.com/andrew-pa/TextExcel.git
     		String ln = userInput.nextLine();
     		if (ln.equals("exit")){
     			System.out.print("--Goodbye--");
@@ -53,7 +48,6 @@ public class Main {
 					e.printStackTrace();
 				}
     		}
-    		System.out.println("Enter Command->");
     	}
     	
     	userInput.close();
