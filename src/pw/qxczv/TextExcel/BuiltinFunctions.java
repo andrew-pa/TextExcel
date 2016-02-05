@@ -33,8 +33,19 @@ public class BuiltinFunctions {
 			return null;
 		}
 	}
+	static class EscFunc extends Function {
+		public EscFunc() {
+			super(new ArrayList<String>(), null);
+			argnames.add("expression");
+		}
+		@Override
+		public Value apply(Spreadsheet s, List<Expression> args) {
+			return args.get(0).evaluate(s).resolve(s);
+		}
+	}
 	public static void apply(Spreadsheet s) {
 		s.setValue("print", new PrintFunc());
 		s.setValue("clear", new ClearFunc());
+		s.setValue("esc", new EscFunc());
 	}
 }

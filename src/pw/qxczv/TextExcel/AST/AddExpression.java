@@ -15,11 +15,11 @@ public class AddExpression extends Expression {
 	
 	@Override
 	public Value evaluate(Spreadsheet s) {
-		try{
-		Number lv = (Number)(left.evaluate(s).resolve(s));
-		Number rv = (Number)(right.evaluate(s).resolve(s));
-		return new Number(lv.v + rv.v);
-		}catch (Exception e) {
+		try {
+			Number lv = (Number)(left.evaluate(s).resolve(s));
+			Number rv = (Number)(right.evaluate(s).resolve(s));
+			return new Number(lv.v + rv.v);
+		} catch (Exception e) {
 			return new ErrorValue(e);
 		}
 	}

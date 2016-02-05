@@ -54,7 +54,9 @@ public class Parser {
     boolean endOfExprp() {
         char c = currChar();
         return !moreCharp() 
-                || endChar(c);
+                || c == '+' || c == '-' || c == '*' || c == '/' || c == '=' 
+                        || c == ')' || c == ':' || c == ']' 
+                        || c == ',' || c == '|' || c == '}' || c == '$';
     }
     boolean endOfTokenp() {
         char c = currChar();
@@ -159,7 +161,7 @@ public class Parser {
     		nextChar();
     		xp = new AssignmentExpression(xp, parse(true));
     	}
-    	if(allowFuncInk && moreCharp() && !endOfTokenp()) {
+    	if(allowFuncInk && moreCharp() && !endOfExprp()) {
     		LinkedList<Expression> args = new LinkedList<>();
     		while(!endOfExprp()) {
     			nextWhitespace();

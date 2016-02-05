@@ -18,6 +18,9 @@ public class Function extends Value {
 	
 	public Value apply(Spreadsheet s, List<Expression> args) {
 		HashMap<String,Value> iva = new HashMap<>();
+		if(argnames.size() != args.size()) {//could implement partial function application here
+			return new ErrorValue("Wrong number of arguments");
+		}
 		for(int i = 0; i < argnames.size(); ++i) {
 			iva.put(argnames.get(i), args.get(i).evaluate(s).resolve(s));
 		}
