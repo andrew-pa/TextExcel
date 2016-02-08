@@ -81,7 +81,8 @@ public class Spreadsheet {
 	}
 	
 	public String format(String s){
-		//This will cap the string at 12 characters
+		//This will cap the string at 11 characters
+		try{
 		if(s.length() > 11){
 			s = s.substring(0,11);
 			s += ">";
@@ -90,6 +91,9 @@ public class Spreadsheet {
 			s += " ";
 		}
 		return s;
+		}catch (NullPointerException e) {
+			return "";
+		}
 	}
 	
 	public void print(){

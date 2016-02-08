@@ -28,6 +28,8 @@ public class DeferredExpression extends Value {
 	
 	@Override
 	public String toCellRepString(Spreadsheet s) {
+		Value holdForException = resolve(s);
+		if(holdForException == null){ return "ERROR"; }
 		return resolve(s).toCellRepString(s);
 	}
 }
