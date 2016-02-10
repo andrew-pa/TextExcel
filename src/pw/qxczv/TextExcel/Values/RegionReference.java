@@ -43,13 +43,12 @@ public class RegionReference extends LValue {
 	}
 
 	private Value[] getValueArray(Spreadsheet s) {
-		Value[] arry = new Value[(((int) colEndIdx) - ((int) colStrtIdx)) * (rowEndIdx - rowStrtIdx) + 1];
+		//Perhaps one day this method will be used... XD
+		Value[] arry = new Value[(((int) colEndIdx + 1) - ((int) colStrtIdx)) * (rowEndIdx + 1 - rowStrtIdx) + 1];
 		int i = 0;
 		Value temp;
-		// Yes I know this is super messy --- Feel free to clean up
 		for (int row = rowStrtIdx; row <= rowEndIdx; row++) {
 			for (int col = (int) colStrtIdx; col <= (int) colEndIdx; col++) {
-				// Also feel free to change the order of the nested loop
 				temp = s.valueAt((char) col, row);
 				if (temp != null) {
 					arry[i] = temp;
@@ -63,20 +62,19 @@ public class RegionReference extends LValue {
 	}
 
 	public Value sum(Spreadsheet s) {
-		Value[] arry = getValueArray(s);
 		double returnedValue = 0;
 		Number tempNum;
 		Value tempResolvedValue;
-		for(int row = rowStrtIdx; row <= rowEndIdx; row ++){
-			for(int col = (int)colStrtIdx; col <= (int)colEndIdx; col ++){
-			tempResolvedValue = v.resolve(s);
-			if(tempResolvedValue != null && tempResolvedValue.getClass() == Number.class){
-				tempNum = (Number) tempResolvedValue;
-				returnedValue += tempNum.v;
-			}
+		for (int row = rowStrtIdx; row <= rowEndIdx; row++) {
+			for (int col = (int) colStrtIdx; col <= (int) colEndIdx; col++) {
+				tempResolvedValue = s.valueAt((char) col, row).resolve(s);
+				if (tempResolvedValue != null && tempResolvedValue.getClass() == Number.class) {
+					tempNum = (Number) tempResolvedValue;
+					returnedValue += tempNum.v;
+				}
 			}
 		}
-		}return new Number(returnedValue);
-}
+		return new Number(returnedValue);
+	}
 
 }
