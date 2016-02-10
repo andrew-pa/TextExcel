@@ -16,6 +16,22 @@ public class RegionReference extends LValue{
 	}
 	
 	@Override
+	public Value resolve(Spreadsheet s) {
+		//!!! THIS IS A CRAZZZZY HAX !!!
+		// This makes subtraction like ``` a1 - a2 ``` still work when evaluated in a context that doesn't require a region
+		// Functions that do require a region should avoid this by not resolving the value
+		// User-defined functions can be invoked with a region using deferred expressions, I think.. 
+		Value sv = s.valueAt(colStrtIdx, rowStrtIdx).resolve(s);
+		Value ev = s.valueAt(colEndIdx, rowEndIdx).resolve(s);
+		if(sv != null && ev != null && sv.getClass() == Number.class && ev.getClass() == Number.class) {
+			Number sn = (Number)sv; Number en = (Number)ev;
+			return new Number(sn.v - en.v);
+		} else {
+			return super.resolve(s);
+		}
+	}
+	
+	@Override
 	public void assign(Spreadsheet s, Value v) {
 		for(int row = rowStrtIdx; row <= rowEndIdx; row ++){
 			for(int col = (int)colStrtIdx; col <= (int)colEndIdx; col ++){
