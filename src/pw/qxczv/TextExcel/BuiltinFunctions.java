@@ -5,6 +5,7 @@ import java.util.List;
 import pw.qxczv.TextExcel.AST.Expression;
 import pw.qxczv.TextExcel.Values.Function;
 import pw.qxczv.TextExcel.Values.LValue;
+import pw.qxczv.TextExcel.Values.RegionReference;
 import pw.qxczv.TextExcel.Values.Value;
 
 public class BuiltinFunctions {
@@ -43,9 +44,21 @@ public class BuiltinFunctions {
 			return args.get(0).evaluate(s).resolve(s);
 		}
 	}
+	static class sumReg extends Function{
+		public sumReg() {
+			super(new ArrayList<String>(), null);
+		}
+		
+		@Override
+		public Value apply(Spreadsheet s, List<Expression> args){
+			RegionReference temp = (RegionReference) args.get(0).evaluate(s);
+			return temp.sum(s);
+		}
+	}
 	public static void apply(Spreadsheet s) {
 		s.setValue("print", new PrintFunc());
 		s.setValue("clear", new ClearFunc());
 		s.setValue("esc", new EscFunc());
+		s.setValue("sum", new sumReg());
 	}
 }

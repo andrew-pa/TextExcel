@@ -56,5 +56,20 @@ public class RegionReference extends LValue{
 		}
 		return arry;
 	}
+
+	public Value sum(Spreadsheet s) {
+		Value[] arry = getValueArray(s);
+		double returnedValue = 0;
+		Number tempNum;
+		Value tempResolvedValue;
+		for(Value v: arry){
+			tempResolvedValue = v.resolve(s);
+			if(tempResolvedValue != null && tempResolvedValue.getClass() == Number.class){
+				tempNum = (Number) tempResolvedValue;
+				returnedValue += tempNum.v;
+			}
+		}
+		return new Number(returnedValue);
+	}
 	
 }
