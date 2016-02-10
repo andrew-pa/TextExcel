@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import pw.qxczv.TextExcel.Values.TrueValue;
 import pw.qxczv.TextExcel.Values.Value;
 
 /**
@@ -17,6 +18,12 @@ public class Spreadsheet {
 		cells = new Value[col][row];
 		globalValues = new LinkedList<>();
 		globalValues.add(new HashMap<>());
+		
+		//set up some important initial globals
+		setValue("T", TrueValue.get());
+		setValue("nil", null);
+		
+		//grab all the built-in functions
 		BuiltinFunctions.apply(this);
 	}
 

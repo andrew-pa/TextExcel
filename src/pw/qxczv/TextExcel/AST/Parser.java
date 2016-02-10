@@ -21,7 +21,7 @@ public class Parser {
 //--private parser stuff------------------------------------------------
 	/* 	AST:
 	 	<expr> := <term> | <expr> + <expr> | <expr> - <expr> | '['<expr>']'
-				| <id> '=' <expr> | <literal> (<expr>' ')+
+				| <id> '=' <expr> | <literal> (<expr>' ')+ | <expr> '?' <expr> ':' <expr>
 		<id> :=  #cell_ref | #name
 		<literal> := #number | #string | <id> | '(' <expr> ')' | '{' ('|' (#name',')+ '|') <expr> '}'
 		<term> := <literal> | <expr> * <expr> | <expr> / <expr>
@@ -49,14 +49,14 @@ public class Parser {
     boolean endChar(char c) {
     	return c == '+' || c == '-' || c == '*' || c == '/' || c == '=' 
                 || c == '(' || c == ')' || c == ':' || c == '[' || c == ']' 
-                || c == ',' || c == '{' || c == '|' || c == '}' || c == '$';
+                || c == ',' || c == '{' || c == '|' || c == '}' || c == '$' || c == '?' || c == ':';
     }
     boolean endOfExprp() {
         char c = currChar();
         return !moreCharp() 
                 || c == '+' || c == '-' || c == '*' || c == '/' || c == '=' 
                         || c == ')' || c == ':' || c == ']' 
-                        || c == ',' || c == '|' || c == '}' || c == '$';
+                        || c == ',' || c == '|' || c == '}' || c == '$' || c == ':';
     }
     boolean endOfTokenp() {
         char c = currChar();
@@ -160,14 +160,26 @@ public class Parser {
     	} else if(currChar() == '=') {
     		nextChar();
     		xp = new AssignmentExpression(xp, parse(true));
-    	}
-    	if(allowFuncInk && moreCharp() && !endOfExprp()) {
-    		LinkedList<Expression> args = new LinkedList<>();
-    		while(!endOfExprp()) {
+    	} 
+    	if(moreCharp() && !endOfExprp()) {
+    		nextWhitespace();
+    		if(currChar() == '?') {
+    			nextChar();
+    			Expression tx = parse(true);
     			nextWhitespace();
-    			args.add(parse(false));
+    			assert currChar() == ':';
+    			nextChar();
+    			Expression fx = parse(true);
+    			xp = new ConditionalExpression(xp, tx, fx);
     		}
-    		xp = new FunctionInvocationExpression(xp, args);
+    		else if(allowFuncInk) {
+	    		LinkedList<Expression> args = new LinkedList<>();
+	    		while(!endOfExprp()) {
+	    			nextWhitespace();
+	    			args.add(parse(false));
+	    		}
+	    		xp = new FunctionInvocationExpression(xp, args);
+	    	}
     	}
     	return xp;
     }
