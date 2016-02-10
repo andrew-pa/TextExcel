@@ -1,27 +1,41 @@
 package pw.qxczv.TextExcel;
 
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
 import pw.qxczv.TextExcel.AST.Expression;
 import pw.qxczv.TextExcel.AST.Parser;
-import pw.qxczv.TextExcel.Values.CellReference;
-import pw.qxczv.TextExcel.Values.Function;
-import pw.qxczv.TextExcel.Values.Value;
+import pw.qxczv.TextExcel.Values.*;
+import pw.qxczv.TextExcel.Values.Number;
 
 public class Main {
 
     public static void main(String[] args) {
     	Spreadsheet s = new Spreadsheet(7,12);
+    	for(int c = 0; c < 7; ++c) {
+    		for(int r = 1; r < 13; ++r) {
+    			s.setValue((char)(c+'A'), r, new Number(c+r));
+    		}
+    	}
+    	JFrame frm = new JFrame("Spreadsheet");
+    	pw.qxczv.TextExcel.GUI.SpreadsheetView sv = new pw.qxczv.TextExcel.GUI.SpreadsheetView(s);
+    	frm.add(sv);
+    	frm.setMinimumSize(new Dimension(650,450));
+    	frm.setVisible(true);
+    	sv.requestFocus();
     	Scanner userInput = new Scanner(System.in);
     	Parser p = new Parser();
     	while(true) {
+    		frm.repaint();
     		System.out.print("> ");
     		String ln = userInput.nextLine();
     		if (ln.equals("exit")){
     			System.out.print("--Goodbye--");
     			break;
-    		} 
+    		}
     		else {
 	    		try {
 					Expression x = p.parse(ln);

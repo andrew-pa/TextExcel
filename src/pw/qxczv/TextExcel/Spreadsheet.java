@@ -10,7 +10,7 @@ import pw.qxczv.TextExcel.Values.Value;
  * Created by s-apalmer on 1/27/2016.
  */
 public class Spreadsheet {
-	Value[/* columns */][/* rows */] cells;
+	public Value[/* columns */][/* rows */] cells;
 	LinkedList<HashMap<String, Value>> globalValues;
 
 	public Spreadsheet(int col, int row) {
