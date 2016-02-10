@@ -2,7 +2,7 @@ package pw.qxczv.TextExcel.Values;
 
 import pw.qxczv.TextExcel.Spreadsheet;
 
-public class RegionReference extends Value{
+public class RegionReference extends LValue{
 
 	public char colStrtIdx; public int rowStrtIdx; public char colEndIdx; public int rowEndIdx;
 	
@@ -11,18 +11,18 @@ public class RegionReference extends Value{
 		colStrtIdx = c; rowStrtIdx = r; colEndIdx = colEnd; rowEndIdx = rowEnd;
 	}
 	
-	@Override
-	public Value resolve(Spreadsheet s) {
-		Value[] arry = getValueArray(s);
-	}
-	
 	public Value[] rawDeref(Spreadsheet s) {
 		return getValueArray(s);
 	}
 	
 	@Override
-	public void assign(Spreadsheet s, Value[]) {
-		
+	public void assign(Spreadsheet s, Value v) {
+		for(int row = rowStrtIdx; row <= rowEndIdx; row ++){
+			for(int col = (int)colStrtIdx; col <= (int)colEndIdx; col ++){
+				s.setValue((char)col, row, v);
+				//(sigh) yes I know I used a setter :'(
+			}
+		}
 	}
 	
 	
