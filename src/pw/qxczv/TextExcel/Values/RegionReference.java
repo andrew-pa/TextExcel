@@ -44,7 +44,7 @@ public class RegionReference extends LValue {
 
 	private Value[] getValueArray(Spreadsheet s) {
 		//Perhaps one day this method will be used... XD
-		Value[] arry = new Value[(((int) colEndIdx + 1) - ((int) colStrtIdx)) * (rowEndIdx + 1 - rowStrtIdx) + 1];
+		Value[] arry = new Value[(((int) colEndIdx + 1) - ((int) colStrtIdx)) * (rowEndIdx + 1 - rowStrtIdx)];
 		int i = 0;
 		Value temp;
 		for (int row = rowStrtIdx; row <= rowEndIdx; row++) {
@@ -62,19 +62,31 @@ public class RegionReference extends LValue {
 	}
 
 	public Value sum(Spreadsheet s) {
+		return new Number(totalNum(s));
+	}
+	
+	public Value average(Spreadsheet s){
+		double num = totalNum(s);
+		int denom = (((int) colEndIdx + 1) - ((int) colStrtIdx)) * (rowEndIdx + 1 - rowStrtIdx);
+		return new Number(num/((double)denom));
+	}
+	
+	private double totalNum(Spreadsheet s){
 		double returnedValue = 0;
 		Number tempNum;
-		Value tempResolvedValue;
+		Value tempValue;
 		for (int row = rowStrtIdx; row <= rowEndIdx; row++) {
 			for (int col = (int) colStrtIdx; col <= (int) colEndIdx; col++) {
-				tempResolvedValue = s.valueAt((char) col, row).resolve(s);
-				if (tempResolvedValue != null && tempResolvedValue.getClass() == Number.class) {
-					tempNum = (Number) tempResolvedValue;
-					returnedValue += tempNum.v;
+				tempValue = s.valueAt((char) col, row);
+				if (tempValue != null){
+						tempValue.resolve(s);
+						if(tempValue.getClass() == Number.class) {
+						tempNum = (Number) tempValue;
+						returnedValue += tempNum.v;
+					}
 				}
 			}
 		}
-		return new Number(returnedValue);
+		return returnedValue;
 	}
-
 }

@@ -55,10 +55,22 @@ public class BuiltinFunctions {
 			return temp.sum(s);
 		}
 	}
+	static class avgReg extends Function{
+		public avgReg() {
+			super(new ArrayList<String>(), null);
+		}
+		
+		@Override
+		public Value apply(Spreadsheet s, List<Expression> args){
+			RegionReference temp = (RegionReference) args.get(0).evaluate(s);
+			return temp.average(s);
+		}
+	}
 	public static void apply(Spreadsheet s) {
 		s.setValue("print", new PrintFunc());
 		s.setValue("clear", new ClearFunc());
 		s.setValue("esc", new EscFunc());
 		s.setValue("sum", new sumReg());
+		s.setValue("avg", new avgReg());
 	}
 }

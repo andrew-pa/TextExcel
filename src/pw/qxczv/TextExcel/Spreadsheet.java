@@ -21,8 +21,13 @@ public class Spreadsheet {
 	}
 
 	public Value valueAt(char c, int r) {
+		try {
 		return cells[c-65][r-1]; // unfortunate reality is that a Spreadsheet is
 									// a column-store
+		} catch (IndexOutOfBoundsException e){
+			System.out.println("<that index it out of bounds>");
+			return null;
+		}
 	}
 	
 	public Value valueFor(String name) {
