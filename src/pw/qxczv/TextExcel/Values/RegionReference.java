@@ -66,9 +66,7 @@ public class RegionReference extends LValue {
 	}
 	
 	public Value average(Spreadsheet s){
-		double num = totalNum(s);
-		int denom = (((int) colEndIdx + 1) - ((int) colStrtIdx)) * (rowEndIdx + 1 - rowStrtIdx);
-		return new Number(num/((double)denom));
+		return new Number(totalNum(s)/((double)(((int) colEndIdx + 1) - ((int) colStrtIdx)) * (rowEndIdx + 1 - rowStrtIdx)));
 	}
 	
 	private double totalNum(Spreadsheet s){
