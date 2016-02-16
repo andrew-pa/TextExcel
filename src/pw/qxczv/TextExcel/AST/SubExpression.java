@@ -2,8 +2,10 @@ package pw.qxczv.TextExcel.AST;
 
 import pw.qxczv.TextExcel.Spreadsheet;
 import pw.qxczv.TextExcel.Values.Value;
+import pw.qxczv.TextExcel.Values.CellReference;
 import pw.qxczv.TextExcel.Values.ErrorValue;
 import pw.qxczv.TextExcel.Values.Number;
+import pw.qxczv.TextExcel.Values.RegionReference;
 
 public class SubExpression extends Expression {
 
@@ -16,9 +18,15 @@ public class SubExpression extends Expression {
 	@Override
 	public Value evaluate(Spreadsheet s) {
 		try {
-			Number lv = (Number)(left.evaluate(s).resolve(s));
-			Number rv = (Number)(right.evaluate(s).resolve(s));
-			return new Number(lv.v - rv.v);
+			Value lv = left.evaluate(s);
+			Value rv = right.evaluate(s);
+			if(lv.getClass() == CellReference.class && rv.getClass() == CellReference.class){
+				return new RegionReference(((CellReference)lv).colIdx, ((CellReference)lv).rowIdx, ((CellReference)rv).colIdx, ((CellReference)rv).rowIdx);
+			} else {
+				Number ln = (Number)(lv.resolve(s));
+				Number rn = (Number)(rv.resolve(s));
+				return new Number(ln.v - rn.v);
+			}
 		} catch (Exception e){
 			return new ErrorValue(e);
 		}

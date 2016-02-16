@@ -6,6 +6,7 @@ import pw.qxczv.TextExcel.AST.Expression;
 import pw.qxczv.TextExcel.Values.Function;
 import pw.qxczv.TextExcel.Values.LValue;
 import pw.qxczv.TextExcel.Values.TrueValue;
+import pw.qxczv.TextExcel.Values.RegionReference;
 import pw.qxczv.TextExcel.Values.Value;
 
 public class BuiltinFunctions {
@@ -80,6 +81,28 @@ public class BuiltinFunctions {
 			return args.get(0).evaluate(s).resolve(s) == null ? TrueValue.get() : null;
 		}
 	}
+	static class sumReg extends Function{
+		public sumReg() {
+			super(new ArrayList<String>(), null);
+		}
+		
+		@Override
+		public Value apply(Spreadsheet s, List<Expression> args){
+			RegionReference temp = (RegionReference) args.get(0).evaluate(s);
+			return temp.sum(s);
+		}
+	}
+	static class avgReg extends Function{
+		public avgReg() {
+			super(new ArrayList<String>(), null);
+		}
+		
+		@Override
+		public Value apply(Spreadsheet s, List<Expression> args){
+			RegionReference temp = (RegionReference) args.get(0).evaluate(s);
+			return temp.average(s);
+		}
+	}
 	public static void apply(Spreadsheet s) {
 		s.setValue("print", new PrintFunc());
 		s.setValue("clear", new ClearFunc());
@@ -91,5 +114,7 @@ public class BuiltinFunctions {
 		s.setValue(">eq", new CompFunc(CompFunc.ComparisonOp.grtreq));
 		s.setValue("!eq", new CompFunc(CompFunc.ComparisonOp.noteq));
 		s.setValue("!", new BoolNotFunc());
+		s.setValue("sum", new sumReg());
+		s.setValue("avg", new avgReg());
 	}
 }
