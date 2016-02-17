@@ -8,6 +8,7 @@ import pw.qxczv.TextExcel.Values.LValue;
 import pw.qxczv.TextExcel.Values.TrueValue;
 import pw.qxczv.TextExcel.Values.RegionReference;
 import pw.qxczv.TextExcel.Values.Value;
+import pw.qxczv.TextExcel.Values.Number;
 
 public class BuiltinFunctions {
 
@@ -103,6 +104,17 @@ public class BuiltinFunctions {
 			return temp.average(s);
 		}
 	}
+	static class newSheet extends Function{
+		public newSheet(){
+			super(new ArrayList<String>(), null);
+		}
+		
+		@Override
+		public Value apply(Spreadsheet s, List<Expression> args){
+			s.newSize((int)(((Number) args.get(0).evaluate(s).resolve(s)).v),(int)(((Number) args.get(1).evaluate(s).resolve(s)).v));
+			return null;
+		}
+	}
 	public static void apply(Spreadsheet s) {
 		s.setValue("print", new PrintFunc());
 		s.setValue("clear", new ClearFunc());
@@ -116,5 +128,6 @@ public class BuiltinFunctions {
 		s.setValue("!", new BoolNotFunc());
 		s.setValue("sum", new sumReg());
 		s.setValue("avg", new avgReg());
+		s.setValue("new", new newSheet());
 	}
 }

@@ -130,4 +130,8 @@ public class Spreadsheet {
 			}
 		}
 	}
+	
+	public void newSize(int col, int row) {
+		cells = new Value[col][row];
+	}
 }

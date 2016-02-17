@@ -12,7 +12,7 @@ import pw.qxczv.TextExcel.Values.Value;
 public class Main {
 
     public static void main(String[] args) {
-    	Spreadsheet s = new Spreadsheet(10,10);
+    	Spreadsheet s = new Spreadsheet(7,12);
     	Scanner userInput = new Scanner(System.in);
     	Parser p = new Parser();
     	while(true) {
