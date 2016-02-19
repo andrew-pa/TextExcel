@@ -12,6 +12,20 @@ public class SpreadsheetAccess {
 		}
 	}
 	
+	public static void delete(String name){
+		if(SpreadsheetFiles.exists(name)){
+			SpreadsheetFileOutputStream.delete(name);
+		}
+	}
+	
+	public static void SaveNew(String name, Spreadsheet s){
+		
+	}
+	
+	public static void Save(String name, Spreadsheet s){
+		
+	}
+	
 	public static void closeOut(){
 		SpreadsheetFileInputStream.closeCrap();
 	}

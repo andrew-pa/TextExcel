@@ -22,7 +22,7 @@ public class SpreadsheetFiles {
 	
 	private static boolean FileSearch(String name) throws IOException {
 		for(int i = 0; i < FilesFound.length; i ++){
-			if(FilesFound[i].equals(name + "qxczvSp")){
+			if(FilesFound[i].equals(name + ".qxczvSp")){
 				return true;
 			}
 		}
