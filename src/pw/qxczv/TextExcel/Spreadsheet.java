@@ -1,5 +1,6 @@
 package pw.qxczv.TextExcel;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +11,11 @@ import pw.qxczv.TextExcel.Values.Value;
 /**
  * Created by s-apalmer on 1/27/2016.
  */
-public class Spreadsheet {
+public class Spreadsheet implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 123789L;
 	Value[/* columns */][/* rows */] cells;
 	LinkedList<HashMap<String, Value>> globalValues;
 

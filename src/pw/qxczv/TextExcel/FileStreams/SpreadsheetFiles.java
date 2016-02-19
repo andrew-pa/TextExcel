@@ -1,6 +1,8 @@
 package pw.qxczv.TextExcel.FileStreams;
-import java.util.ArrayList;
-import java.io.*;
+
+import java.io.File;
+import java.io.IOException;
+
 public class SpreadsheetFiles {
 	private static String[] FilesFound;
 	private static File directory = new File("/SavedSpreadsheets");
@@ -20,7 +22,7 @@ public class SpreadsheetFiles {
 	
 	private static boolean FileSearch(String name) throws IOException {
 		for(int i = 0; i < FilesFound.length; i ++){
-			if(FilesFound[i].equals(name)){
+			if(FilesFound[i].equals(name + "qxczvSp")){
 				return true;
 			}
 		}

@@ -9,7 +9,7 @@ import pw.qxczv.TextExcel.Spreadsheet;
 
 
 
-public class SpreadsheetFileStream {
+public class SpreadsheetFileInputStream {
 	
 private static FileInputStream fileInput;
 private static ObjectInputStream ObjectInput;
