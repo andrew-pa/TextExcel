@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import pw.qxczv.TextExcel.FileStreams.SpreadsheetAccess;
 import pw.qxczv.TextExcel.Values.TrueValue;
 import pw.qxczv.TextExcel.Values.Value;
 
@@ -138,5 +139,9 @@ public class Spreadsheet implements Serializable{
 	
 	public void newSize(int col, int row) {
 		cells = new Value[col][row];
+	}
+
+	public void Save(String v) {
+		SpreadsheetAccess.Save(v,this);
 	}
 }
