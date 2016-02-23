@@ -6,6 +6,7 @@ import java.io.IOException;
 public class SpreadsheetFiles {
 	private static String[] FilesFound;
 	private static File directory = new File("/SavedSpreadsheets");
+	//Sigh a file in the main disk drive -- Will change later
 	
 	public static boolean exists(String name) {
 		try{
@@ -32,6 +33,8 @@ public class SpreadsheetFiles {
 	private static void UpdateFiles() throws IOException{
 		if (!directory.mkdir()){
 			 FilesFound = directory.list();
+		}else{
+			FilesFound = new String[0];
 		}
 	}
 
