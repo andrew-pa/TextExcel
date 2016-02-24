@@ -2,7 +2,6 @@ package pw.qxczv.TextExcel.AST;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 import pw.qxczv.TextExcel.Values.*;
 import pw.qxczv.TextExcel.Values.Number;

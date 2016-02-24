@@ -4,7 +4,8 @@ package pw.qxczv.TextExcel.FileStreams;
 import pw.qxczv.TextExcel.Spreadsheet;
 
 public class SpreadsheetAccess {
-	public Spreadsheet getSpreadsheet(String name){
+	
+	public static Spreadsheet getSpreadsheet(String name){
 		if(SpreadsheetFiles.exists(name)){
 			return SpreadsheetFileInputStream.get(name);
 		}else{
@@ -18,18 +19,11 @@ public class SpreadsheetAccess {
 		//Note: ^ Returns Boolean if needed
 	}
 	
-	public static void SaveNew(String name, Spreadsheet s){
-		if(!SpreadsheetFiles.exists(name)){
-			SpreadsheetFileOutputStream.newSaveFile(name,s);
-			//Note: ^ Returns Boolean if needed
-		}
-	}
-	
 	public static void Save(String name, Spreadsheet s){
 		if(SpreadsheetFiles.exists(name)){
 			SpreadsheetFileOutputStream.rewriteSaveFile(name, s);
 		}else{
-			SaveNew(name,s);
+			SpreadsheetFileOutputStream.newSaveFile(name,s);
 		}
 	}
 	

@@ -127,6 +127,17 @@ public class BuiltinFunctions {
 			return null;
 		}
 	}
+	static class loadSheet extends Function{
+		public loadSheet(){
+			super(new ArrayList<String>(), null);
+		}
+		
+		@Override
+		public Value apply(Spreadsheet s, List<Expression> args){
+			s.load(((StringValue) args.get(0).evaluate(s).resolve(s)).v);
+			return null;
+		}
+	}
 	public static void apply(Spreadsheet s) {
 		s.setValue("print", new PrintFunc());
 		s.setValue("clear", new ClearFunc());
@@ -142,5 +153,6 @@ public class BuiltinFunctions {
 		s.setValue("avg", new avgReg());
 		s.setValue("new", new newSheet());
 		s.setValue("save", new saveSheet());
+		s.setValue("load", new loadSheet());
 	}
 }

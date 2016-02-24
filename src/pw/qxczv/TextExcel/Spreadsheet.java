@@ -3,7 +3,7 @@ package pw.qxczv.TextExcel;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
+
 
 import pw.qxczv.TextExcel.FileStreams.SpreadsheetAccess;
 import pw.qxczv.TextExcel.Values.TrueValue;
@@ -143,5 +143,9 @@ public class Spreadsheet implements Serializable{
 
 	public void Save(String v) {
 		SpreadsheetAccess.Save(v,this);
+	}
+	
+	public void load(String n){
+		cells = SpreadsheetAccess.getSpreadsheet(n).cells;
 	}
 }
