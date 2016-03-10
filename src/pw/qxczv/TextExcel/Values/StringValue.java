@@ -3,6 +3,9 @@ package pw.qxczv.TextExcel.Values;
 import pw.qxczv.TextExcel.Spreadsheet;
 
 public class StringValue extends Value {
+	
+	private static final long serialVersionUID = 123456788L;
+	
 	public String v;
 	
 	public StringValue(String s) { v = s; }

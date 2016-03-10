@@ -3,6 +3,7 @@ package pw.qxczv.TextExcel.Values;
 import pw.qxczv.TextExcel.Spreadsheet;
 
 public class CellReference extends LValue {
+	private static final long serialVersionUID = 123456780L;
 	public char colIdx; public int rowIdx;
 	
 	public CellReference(char c, int r) {

@@ -1,6 +1,9 @@
 package pw.qxczv.TextExcel.Values;
 
 public class Number extends Value {
+	
+	private static final long serialVersionUID = 123456786L;
+	
 	public double v;
 	
 	public Number(double d) { v = d; }

@@ -4,6 +4,7 @@ import pw.qxczv.TextExcel.Spreadsheet;
 import pw.qxczv.TextExcel.AST.Expression;
 
 public class DeferredExpression extends Value {
+	private static final long serialVersionUID = 123456781L;
 	public Expression xpr;
 	
 	public DeferredExpression(Expression x) {
