@@ -5,9 +5,9 @@ import java.util.List;
 
 import pw.qxczv.TextExcel.Spreadsheet;
 import pw.qxczv.TextExcel.AST.Expression;
-import pw.qxczv.TextExcel.AST.Term;
 
 public class Function extends Value {
+	private static final long serialVersionUID = 123456783L;
 	public List<String> argnames;
 	public Expression body;
 	

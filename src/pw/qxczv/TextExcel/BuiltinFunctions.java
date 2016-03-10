@@ -14,6 +14,7 @@ import pw.qxczv.TextExcel.Values.Number;
 public class BuiltinFunctions {
 
 	static class PrintFunc extends Function {
+		private static final long serialVersionUID = 1L;
 		public PrintFunc() {
 			super(new ArrayList<String>(),null);
 		}
@@ -24,6 +25,7 @@ public class BuiltinFunctions {
 		}
 	}
 	static class ClearFunc extends Function {
+		private static final long serialVersionUID = 1L;
 		public ClearFunc() {
 			super(new ArrayList<String>(),null);
 		}
@@ -38,6 +40,7 @@ public class BuiltinFunctions {
 		}
 	}
 	static class EscFunc extends Function {
+		private static final long serialVersionUID = 1L;
 		public EscFunc() {
 			super(new ArrayList<String>(), null);
 			argnames.add("expression");
@@ -48,6 +51,7 @@ public class BuiltinFunctions {
 		}
 	}
 	static class CompFunc extends Function {
+		private static final long serialVersionUID = 1L;
 		public static enum ComparisonOp {
 			less, lesseq, eq, grtr, grtreq, noteq
 		}
@@ -74,6 +78,7 @@ public class BuiltinFunctions {
 		}
 	}
 	static class BoolNotFunc extends Function {
+		private static final long serialVersionUID = 1L;
 		public BoolNotFunc() {
 			super(new ArrayList<String>(), null);
 			argnames.add("expression");
@@ -84,6 +89,8 @@ public class BuiltinFunctions {
 		}
 	}
 	static class sumReg extends Function{
+		private static final long serialVersionUID = 1L;
+
 		public sumReg() {
 			super(new ArrayList<String>(), null);
 		}
@@ -95,6 +102,8 @@ public class BuiltinFunctions {
 		}
 	}
 	static class avgReg extends Function{
+		private static final long serialVersionUID = 1L;
+
 		public avgReg() {
 			super(new ArrayList<String>(), null);
 		}
@@ -106,6 +115,8 @@ public class BuiltinFunctions {
 		}
 	}
 	static class newSheet extends Function{
+		private static final long serialVersionUID = 1L;
+
 		public newSheet(){
 			super(new ArrayList<String>(), null);
 		}
@@ -117,24 +128,36 @@ public class BuiltinFunctions {
 		}
 	}
 	static class saveSheet extends Function{
+		private static final long serialVersionUID = 1L;
+
 		public saveSheet(){
 			super(new ArrayList<String>(), null);
 		}
 		
 		@Override
 		public Value apply(Spreadsheet s, List<Expression> args){
-			s.Save(((StringValue) args.get(0).evaluate(s).resolve(s)).v);
+			try{
+				s.Save(((StringValue) args.get(0).evaluate(s).resolve(s)).v);
+			}catch (NullPointerException e){
+				System.out.println("<Please Put Name In Quotes>");
+			}
 			return null;
 		}
 	}
 	static class loadSheet extends Function{
+		private static final long serialVersionUID = 1L;
+
 		public loadSheet(){
 			super(new ArrayList<String>(), null);
 		}
 		
 		@Override
 		public Value apply(Spreadsheet s, List<Expression> args){
+			try{
 			s.load(((StringValue) args.get(0).evaluate(s).resolve(s)).v);
+			}catch (NullPointerException e){
+				System.out.println("<Please Put Name In Quotes>");
+			}
 			return null;
 		}
 	}

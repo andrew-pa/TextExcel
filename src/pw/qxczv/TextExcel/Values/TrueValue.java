@@ -1,6 +1,8 @@
 package pw.qxczv.TextExcel.Values;
 
 public class TrueValue extends Value {
+	
+	private static final long serialVersionUID = 123456789L;
 
 	private static TrueValue instance = new TrueValue();
 	

@@ -3,6 +3,7 @@ package pw.qxczv.TextExcel.Values;
 import pw.qxczv.TextExcel.Spreadsheet;
 
 public class ErrorValue extends Value {
+	private static final long serialVersionUID = 123456782L;
 	public Exception err;
 	
 	public ErrorValue(Exception e) {

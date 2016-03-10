@@ -3,6 +3,8 @@ package pw.qxczv.TextExcel.Values;
 import pw.qxczv.TextExcel.Spreadsheet;
 
 public class GlobalValueReference extends LValue {
+	private static final long serialVersionUID = 123456784L;
+	
 	public String name;
 	
 	public GlobalValueReference(String nm) {

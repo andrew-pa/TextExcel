@@ -3,6 +3,8 @@ package pw.qxczv.TextExcel.Values;
 import pw.qxczv.TextExcel.Spreadsheet;
 
 public class RegionReference extends LValue {
+	
+	private static final long serialVersionUID = 123456787L;
 
 	public char colStrtIdx;
 	public int rowStrtIdx;
