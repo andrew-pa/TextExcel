@@ -38,4 +38,15 @@ public class SpreadsheetFiles {
 		}
 	}
 
+	public static void delete() {
+		if(directory.exists()){
+			FilesFound = directory.list();
+			for(int i = 0; i < FilesFound.length; i ++){
+				File temp = new File(FilesFound[i]);
+				temp.delete();
+			}
+			directory.delete();	
+		}
+	}
+
 }

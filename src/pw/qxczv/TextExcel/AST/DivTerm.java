@@ -6,7 +6,7 @@ import pw.qxczv.TextExcel.Values.ErrorValue;
 import pw.qxczv.TextExcel.Values.Number;
 
 public class DivTerm extends Expression {
-
+	private static final long serialVersionUID = 99912345673L;
 	public Expression left, right;
 	
 	public DivTerm(Expression l, Expression r) {

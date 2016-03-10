@@ -6,7 +6,7 @@ import pw.qxczv.TextExcel.Values.ErrorValue;
 import pw.qxczv.TextExcel.Values.Number;
 
 public class AddExpression extends Expression {
-
+	private static final long serialVersionUID = 99912345670L;
 	public Expression left, right;
 	
 	public AddExpression(Expression l, Expression r) {

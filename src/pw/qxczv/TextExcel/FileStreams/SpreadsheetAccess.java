@@ -19,6 +19,10 @@ public class SpreadsheetAccess {
 		//Note: ^ Returns Boolean if needed
 	}
 	
+	public static void deleteFolder(){
+		SpreadsheetFiles.delete();
+	}
+	
 	public static void Save(String name, Spreadsheet s){
 		if(SpreadsheetFiles.exists(name)){
 			SpreadsheetFileOutputStream.rewriteSaveFile(name, s);

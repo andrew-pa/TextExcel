@@ -6,7 +6,7 @@ import pw.qxczv.TextExcel.Values.LValue;
 import pw.qxczv.TextExcel.Values.Value;
 
 public class AssignmentExpression extends Expression {
-
+	private static final long serialVersionUID = 99912345671L;
 	public Expression lhs;
 	public Expression rhs;
 	

@@ -6,7 +6,7 @@ import pw.qxczv.TextExcel.Values.ErrorValue;
 import pw.qxczv.TextExcel.Values.Number;
 
 public class MulTerm extends Expression {
-
+	private static final long serialVersionUID = 99912345676L;
 	public Expression left, right;
 	
 	public MulTerm(Expression l, Expression r) {

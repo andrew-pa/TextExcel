@@ -4,6 +4,7 @@ import pw.qxczv.TextExcel.Spreadsheet;
 import pw.qxczv.TextExcel.Values.Value;
 
 public class ConditionalExpression extends Expression {
+	private static final long serialVersionUID = 99912345672L;
 	Expression cond, truex, falsex;
 	
 	public ConditionalExpression(Expression c, Expression t, Expression f) {

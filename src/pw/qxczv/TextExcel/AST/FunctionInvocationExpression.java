@@ -7,6 +7,7 @@ import pw.qxczv.TextExcel.Values.Function;
 import pw.qxczv.TextExcel.Values.Value;
 
 public class FunctionInvocationExpression extends Expression {
+	private static final long serialVersionUID = 99912345674L;
 	public Expression func;
 	public List<Expression> args;
 	

@@ -8,7 +8,7 @@ import pw.qxczv.TextExcel.Values.Number;
 import pw.qxczv.TextExcel.Values.RegionReference;
 
 public class SubExpression extends Expression {
-
+	private static final long serialVersionUID = 99912345677L;
 	public Expression left, right;
 	
 	public SubExpression(Expression l, Expression r) {

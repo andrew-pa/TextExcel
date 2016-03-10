@@ -148,4 +148,14 @@ public class Spreadsheet implements Serializable{
 	public void load(String n){
 		cells = SpreadsheetAccess.getSpreadsheet(n).cells;
 	}
+
+	public static void deleteFolder() {
+		SpreadsheetAccess.deleteFolder();
+		
+	}
+
+	public void delete(String v) {
+		SpreadsheetAccess.delete(v);
+		
+	}
 }

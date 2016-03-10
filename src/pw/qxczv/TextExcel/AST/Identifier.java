@@ -6,6 +6,7 @@ import pw.qxczv.TextExcel.Values.GlobalValueReference;
 import pw.qxczv.TextExcel.Values.Value;
 
 public class Identifier extends Term {
+	private static final long serialVersionUID = 99912345675L;
 	public String nm;
 	public Identifier(String s) {
 		nm = s;

@@ -123,7 +123,11 @@ public class BuiltinFunctions {
 		
 		@Override
 		public Value apply(Spreadsheet s, List<Expression> args){
+			try{
 			s.newSize((int)(((Number) args.get(0).evaluate(s).resolve(s)).v),(int)(((Number) args.get(1).evaluate(s).resolve(s)).v));
+			}catch(IndexOutOfBoundsException e){
+				System.out.println("<Please Type Two Numebers After New>");
+			}
 			return null;
 		}
 	}
@@ -161,6 +165,36 @@ public class BuiltinFunctions {
 			return null;
 		}
 	}
+	static class deleteSheet extends Function{
+		private static final long serialVersionUID = 1L;
+
+		public deleteSheet(){
+			super(new ArrayList<String>(), null);
+		}
+		
+		@Override
+		public Value apply(Spreadsheet s, List<Expression> args){
+			try{
+			s.delete(((StringValue) args.get(0).evaluate(s).resolve(s)).v);
+			}catch (NullPointerException e){
+				System.out.println("<Please Put Name In Quotes>");
+			}
+			return null;
+		}
+	}
+	static class deleteFolder extends Function{
+		private static final long serialVersionUID = 1L;
+
+		public deleteFolder(){
+			super(new ArrayList<String>(), null);
+		}
+		
+		@Override
+		public Value apply(Spreadsheet s, List<Expression> args){
+			Spreadsheet.deleteFolder();
+			return null;
+		}
+	}
 	public static void apply(Spreadsheet s) {
 		s.setValue("print", new PrintFunc());
 		s.setValue("clear", new ClearFunc());
@@ -177,5 +211,7 @@ public class BuiltinFunctions {
 		s.setValue("new", new newSheet());
 		s.setValue("save", new saveSheet());
 		s.setValue("load", new loadSheet());
+		s.setValue("kill", new deleteFolder());
+		s.setValue("delete", new deleteSheet());
 	}
 }
