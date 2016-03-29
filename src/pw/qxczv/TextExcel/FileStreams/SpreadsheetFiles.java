@@ -41,9 +41,10 @@ public class SpreadsheetFiles {
 	public static void delete() {
 		if(directory.exists()){
 			FilesFound = directory.list();
-			for(int i = 0; i < FilesFound.length; i ++){
-				File temp = new File(FilesFound[i]);
-				temp.delete();
+			if(FilesFound != null){
+				for(int i = 0; i < FilesFound.length; i ++){
+					SpreadsheetAccess.delete(FilesFound[i].substring(0,FilesFound[i].indexOf(".qxczvSp")));
+				}
 			}
 			directory.delete();	
 		}
