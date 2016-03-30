@@ -7,7 +7,9 @@ public class SpreadsheetAccess {
 	
 	public static Spreadsheet getSpreadsheet(String name){
 		if(SpreadsheetFiles.exists(name)){
-			return SpreadsheetFileInputStream.get(name);
+			Spreadsheet temp = SpreadsheetFileInputStream.get(name);
+			SpreadsheetFileInputStream.closeCrap();
+			return temp;
 		}else{
 			System.out.println("<File Not Found>");
 			return null;
@@ -26,12 +28,11 @@ public class SpreadsheetAccess {
 	public static void Save(String name, Spreadsheet s){
 		if(SpreadsheetFiles.exists(name)){
 			SpreadsheetFileOutputStream.rewriteSaveFile(name, s);
+			
 		}else{
 			SpreadsheetFileOutputStream.newSaveFile(name,s);
 		}
+		SpreadsheetFileOutputStream.closeCrap();
 	}
 	
-	public static void closeOut(){
-		SpreadsheetFileInputStream.closeCrap();
-	}
 }
