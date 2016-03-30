@@ -5,22 +5,24 @@ import java.util.ArrayList;;
 public class HelpSystem {
 	public static class HelpPage {
 		public String topic;
-		public String[] contents;
-		public HelpPage(String T, String[] C) {
+		public String contents;
+		public HelpPage(String T, String C) {
 			topic = T;
 			contents = C;
 		}
 		public String toString() {
 			StringBuilder sb = new StringBuilder();
 			sb.append("-- "+ topic + " --\n");
-			for(String s : contents) sb.append(s + "\n");
+			sb.append(contents);
 			return sb.toString();
 		}
 	}
 	public static ArrayList<HelpPage> help_pages;
 	
 	public static void init() {
+		//Initializes all help pages
 		help_pages = new ArrayList<>();
+		help_pages.add(new HelpPage("print", "prints the spreadsheet currently in the workspace"));
 	}
 	
 	public static String mainHelpMessage() {
@@ -32,8 +34,22 @@ public class HelpSystem {
 		for(HelpPage hp : help_pages) {
 			sb.append("\t");
 			sb.append(hp.topic);
-			sb.append(" (" + hp.contents.length + " pages)\n");
 		}
 		return sb.toString();
+	}
+	
+	public static String HelpMessage(String t) {
+		if(help_pages == null) init();
+		if(t != null){
+			for(HelpPage page: help_pages){
+				if(page.topic.equals(t)){
+					StringBuilder sb = new StringBuilder();
+					sb.append("-- " + page.topic + " -- \n\n");
+					sb.append(page.contents);
+					return sb.toString();
+				}
+			}
+		}
+		return "";
 	}
 }

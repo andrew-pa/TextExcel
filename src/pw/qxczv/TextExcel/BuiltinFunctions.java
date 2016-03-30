@@ -142,8 +142,10 @@ public class BuiltinFunctions {
 		public Value apply(Spreadsheet s, List<Expression> args){
 			try{
 				s.Save(((StringValue) args.get(0).evaluate(s).resolve(s)).v);
-			}catch (NullPointerException e){
+			}catch (ClassCastException e){
 				System.out.println("<Please Put Name In Quotes>");
+			}catch (NullPointerException e){
+				System.out.println("<Please Put Name In Quotes");
 			}
 			return null;
 		}
@@ -159,8 +161,10 @@ public class BuiltinFunctions {
 		public Value apply(Spreadsheet s, List<Expression> args){
 			try{
 			s.load(((StringValue) args.get(0).evaluate(s).resolve(s)).v);
-			}catch (NullPointerException e){
+			}catch (ClassCastException e){
 				System.out.println("<Please Put Name In Quotes>");
+			}catch (NullPointerException e){
+				System.out.println("<Please Put Name In Quotes");
 			}
 			return null;
 		}
@@ -176,8 +180,10 @@ public class BuiltinFunctions {
 		public Value apply(Spreadsheet s, List<Expression> args){
 			try{
 			s.delete(((StringValue) args.get(0).evaluate(s).resolve(s)).v);
-			}catch (NullPointerException e){
+			}catch (ClassCastException e){
 				System.out.println("<Please Put Name In Quotes>");
+			}catch (NullPointerException e){
+				System.out.println("<Please Put Name In Quotes");
 			}
 			return null;
 		}
@@ -196,6 +202,8 @@ public class BuiltinFunctions {
 		}
 	}
 	static class helpFunc extends Function {
+		private static final long serialVersionUID = 1L;
+
 		public helpFunc() {
 			super(new ArrayList<String>(), null);
 		}
@@ -229,5 +237,6 @@ public class BuiltinFunctions {
 		s.setValue("load", new loadSheet());
 		s.setValue("kill", new deleteFolder());
 		s.setValue("delete", new deleteSheet());
+		s.setValue("help", new helpFunc());
 	}
 }
