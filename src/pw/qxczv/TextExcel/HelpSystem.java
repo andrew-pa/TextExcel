@@ -10,6 +10,12 @@ public class HelpSystem {
 			topic = T;
 			contents = C;
 		}
+		public String toString() {
+			StringBuilder sb = new StringBuilder();
+			sb.append("-- "+ topic + " --\n");
+			for(String s : contents) sb.append(s + "\n");
+			return sb.toString();
+		}
 	}
 	public static ArrayList<HelpPage> help_pages;
 	

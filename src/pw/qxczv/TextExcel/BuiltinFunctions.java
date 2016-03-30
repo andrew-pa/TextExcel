@@ -203,9 +203,10 @@ public class BuiltinFunctions {
 		@Override
 		public Value apply(Spreadsheet s, List<Expression> args) {
 			if(args.size() == 0) {
-				HelpSystem.mainHelpMessage();
+				System.out.println(HelpSystem.mainHelpMessage());
 			} else if(args.size() == 1) {
-				HelpSystem.
+				System.out.println(HelpSystem.help_pages.get(
+						(int)((Number)(args.get(0).evaluate(s).resolve(s))).v).toString());
 			}
 			return null;
 		}
