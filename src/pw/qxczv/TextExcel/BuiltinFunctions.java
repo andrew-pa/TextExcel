@@ -195,6 +195,21 @@ public class BuiltinFunctions {
 			return null;
 		}
 	}
+	static class helpFunc extends Function {
+		public helpFunc() {
+			super(new ArrayList<String>(), null);
+		}
+		
+		@Override
+		public Value apply(Spreadsheet s, List<Expression> args) {
+			if(args.size() == 0) {
+				HelpSystem.mainHelpMessage();
+			} else if(args.size() == 1) {
+				HelpSystem.
+			}
+			return null;
+		}
+	}
 	public static void apply(Spreadsheet s) {
 		s.setValue("print", new PrintFunc());
 		s.setValue("clear", new ClearFunc());
