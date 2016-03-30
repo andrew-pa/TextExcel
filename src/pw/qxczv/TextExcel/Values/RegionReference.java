@@ -41,7 +41,7 @@ public class RegionReference extends LValue {
 
 	@Override
 	public String toString() {
-		return colStrtIdx + "" + rowStrtIdx + " - " + colEndIdx + rowEndIdx;
+		return colStrtIdx + rowStrtIdx + " - " + colEndIdx + rowEndIdx;
 	}
 
 	private Value[] getValueArray(Spreadsheet s) {

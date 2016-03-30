@@ -38,7 +38,7 @@ public class Spreadsheet implements Serializable{
 		return cells[c-65][r-1]; // unfortunate reality is that a Spreadsheet is
 									// a column-store
 		} catch (IndexOutOfBoundsException e){
-			System.out.println("<that index it out of bounds>");
+			System.out.println("<That Index Is Out Of Bounds>");
 			return null;
 		}
 	}
