@@ -38,15 +38,12 @@ public class HelpSystem {
 		return sb.toString();
 	}
 	
-	public static String HelpMessage(String t) {
+	public static String helpMessage(String t) {
 		if(help_pages == null) init();
 		if(t != null){
 			for(HelpPage page: help_pages){
 				if(page.topic.equals(t)){
-					StringBuilder sb = new StringBuilder();
-					sb.append("-- " + page.topic + " -- \n\n");
-					sb.append(page.contents);
-					return sb.toString();
+					return page.toString();
 				}
 			}
 		}

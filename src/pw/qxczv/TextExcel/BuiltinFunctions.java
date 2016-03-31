@@ -213,8 +213,8 @@ public class BuiltinFunctions {
 			if(args.size() == 0) {
 				System.out.println(HelpSystem.mainHelpMessage());
 			} else if(args.size() == 1) {
-				System.out.println(HelpSystem.help_pages.get(
-						(int)((Number)(args.get(0).evaluate(s).resolve(s))).v).toString());
+				System.out.println(HelpSystem.helpMessage(
+						((pw.qxczv.TextExcel.AST.Identifier)(args.get(0))).nm));
 			}
 			return null;
 		}
