@@ -118,8 +118,11 @@ public class Parser {
     	} else if(currChar() == '"') {
     		nextChar();
     		StringBuffer sb = new StringBuffer();
+    		int len = 0;
     		while(currChar() != '"') {
     			sb.append(currChar());
+    			len ++;
+    			if(len > inp.length()+10) throw new Exception("Unable to find closing \"");
     			nextChar();
     		}
     		nextChar();

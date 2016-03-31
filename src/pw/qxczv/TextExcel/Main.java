@@ -44,8 +44,7 @@ public class Main {
 						}
 					}
 				} catch (Exception e) {
-					//Change when ship
-					e.printStackTrace();
+					System.out.println("Error: " + e.getMessage());
 				}
     		}
     	}
