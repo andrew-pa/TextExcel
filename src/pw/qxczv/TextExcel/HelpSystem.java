@@ -56,10 +56,19 @@ public class HelpSystem {
 				"clear 'a cell name' -- clears out only that cell in the spreadsheet\n"+
 				"esc 'an expr' -- evaluate a expression\n"+
 				"comparison functions: see topic branching\n"+
+				"new 'number' + 'number' -- creates a new spreadsheet with specified dimensions\n"+
 				"sum 'cell region' -- calculate the sum of a rectangular region in the spreadsheet, defined by subtracting the names of two cells, like a2-c3\n"+
 				"avg 'cell region' -- calculate the average of a rectangular region in the spreadsheet, see above\n"+
+				"sort 'row numer' or sort \"Column Letter\" -- rewrites the spreadsheet putting the row/column in order left-right\top-bottom\n"+
 				"file load/save: see topic files\n"
 				));
+		help_pages.add(new HelpPage("files", 
+				"Users can save spreadsheets to their main drive.\n\n" +
+				"save \"Name of Spreadsheet\" -- saves the spreadsheet under that name\n" +
+				"load \"Name of Spreadsheet\" -- loads the spreadsheet under that name\n"+
+				"delete \"Name of Spreadsheet\" -- deletes the spreadsheet under that name\n"+
+				"kill -- deletes the entire folder SavedSpreadsheets\n"+
+				"Users can feel free to view the SavedSpreadsheets in file explorer of their main drive"));
 	}
 	
 	public static String mainHelpMessage() {

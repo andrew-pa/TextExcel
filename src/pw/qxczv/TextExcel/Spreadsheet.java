@@ -145,7 +145,7 @@ public class Spreadsheet implements Serializable{
 	}
 	
 	public void newSize(int col, int row) {
-		cells = new Value[col][row];
+		cells = new Value[Math.abs(col)][Math.abs(row)];
 	}
 
 	public void Save(String v) {
