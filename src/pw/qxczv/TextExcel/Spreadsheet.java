@@ -17,8 +17,11 @@ public class Spreadsheet implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 123789L;
+	public int colMax;
+	public int rowMax;
 	Value[/* columns */][/* rows */] cells;
 	LinkedList<HashMap<String, Value>> globalValues;
+	
 
 	public Spreadsheet(int col, int row) {
 		cells = new Value[col][row];
@@ -26,11 +29,15 @@ public class Spreadsheet implements Serializable{
 		globalValues.add(new HashMap<>());
 		
 		//set up some important initial globals
+		colMax = cells.length;
+		rowMax = cells[0].length;
 		setValue("T", TrueValue.get());
 		setValue("nil", null);
 		
+		
 		//grab all the built-in functions
 		BuiltinFunctions.apply(this);
+		
 	}
 
 	public Value valueAt(char c, int r) {
