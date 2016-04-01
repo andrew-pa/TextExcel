@@ -7,7 +7,6 @@ import pw.qxczv.TextExcel.Values.Function;
 import pw.qxczv.TextExcel.Values.LValue;
 import pw.qxczv.TextExcel.Values.TrueValue;
 import pw.qxczv.TextExcel.Values.RegionReference;
-import pw.qxczv.TextExcel.Values.Sort;
 import pw.qxczv.TextExcel.Values.StringValue;
 import pw.qxczv.TextExcel.Values.Value;
 import pw.qxczv.TextExcel.Values.Number;
@@ -213,9 +212,9 @@ public class BuiltinFunctions {
 		public Value apply(Spreadsheet s, List<Expression> args){
 			Value temp = args.get(0).evaluate(s).resolve(s);
 			if(temp.getClass() == Number.class){
-				Sort.sort((int)(((Number) temp).v), s);
+				s.sort((int)(((Number) temp).v));
 			}else if(temp.getClass() == StringValue.class){
-				Sort.sort(((StringValue) temp).v.toUpperCase().charAt(0), s);
+				s.sort(((StringValue) temp).v.toUpperCase().charAt(0));
 			}
 			return null;
 		}

@@ -29,8 +29,6 @@ public class Spreadsheet implements Serializable{
 		globalValues.add(new HashMap<>());
 		
 		//set up some important initial globals
-		colMax = cells.length;
-		rowMax = cells[0].length;
 		setValue("T", TrueValue.get());
 		setValue("nil", null);
 		
@@ -164,5 +162,41 @@ public class Spreadsheet implements Serializable{
 	public void delete(String v) {
 		SpreadsheetAccess.delete(v);
 		
+	}
+	public void sort(int r){
+		Value[] array = new Value[cells.length];
+		for(int i = 0; i < cells.length ; i ++){
+			array[i] = this.valueAt((char)(65+i), r);
+		}
+		InsertionSort(array);
+		for(int i = 0; i < cells.length; i ++){
+			this.setValue((char)(65+i), r, array[i]);
+		}
+	}
+	
+	public void sort(char c){
+		Value[] array = new Value[cells[0].length];
+		for(int i = 0; i < cells[0].length ; i ++){
+			array[i] = this.valueAt(c, i+1);
+		}
+		InsertionSort(array);
+		for(int i = 0; i < cells[0].length; i ++){
+			this.setValue(c, i+1, array[i]);
+		}
+
+	}
+	
+	public static void InsertionSort(Value[] array) {
+		//Written by me for the Sorting Comparison homework
+		Value temp;
+		for (int i = 1; i < array.length; i++) {
+			temp = array[i];
+			int j = 1;
+			while (j != i + 1 && temp.compareTo(array[i - j]) == -1) {
+				array[i + 1 - j] = array[i - j];
+				j++;
+			}
+			array[i + 1 - j] = temp;
+		}
 	}
 }
