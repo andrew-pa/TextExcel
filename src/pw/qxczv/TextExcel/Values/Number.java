@@ -11,7 +11,6 @@ public class Number extends Value {
 	@Override
 	public int compareTo(Value o) {
 		Number on = (Number)o;
-		if(on == null) return -1; //values of different types are always less
 		return Double.compare(v, on.v);
 	}
 	

@@ -18,7 +18,6 @@ public class DeferredExpression extends Value {
 	
 	@Override
 	public int compareTo(Value o) {
-		// Comparing a deferred expression always returns less because there is no Spreadsheet to evaluate relative to
 		return -1;
 	}
 

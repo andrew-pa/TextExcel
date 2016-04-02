@@ -168,31 +168,25 @@ public class Spreadsheet implements Serializable{
 		for(int i = 0; i < cells.length ; i ++){
 			array[i] = this.valueAt((char)(65+i), r);
 		}
-		InsertionSort(array);
+		insertionSort(array);
 		for(int i = 0; i < cells.length; i ++){
 			this.setValue((char)(65+i), r, array[i]);
 		}
 	}
 	
 	public void sort(char c){
-		Value[] array = new Value[cells[0].length];
-		for(int i = 0; i < cells[0].length ; i ++){
-			array[i] = this.valueAt(c, i+1);
-		}
-		InsertionSort(array);
-		for(int i = 0; i < cells[0].length; i ++){
-			this.setValue(c, i+1, array[i]);
-		}
+		insertionSort(cells[c-65]);
 
 	}
 	
-	public static void InsertionSort(Value[] array) {
+	static void insertionSort(Value[] array) {
 		//Written by me for the Sorting Comparison homework
 		Value temp;
 		for (int i = 1; i < array.length; i++) {
 			temp = array[i];
+			if(temp == null) break;
 			int j = 1;
-			while (j != i + 1 && temp.compareTo(array[i - j]) == -1) {
+			while (j != i + 1 && array[i-j]!=null && temp.compareTo(array[i - j]) == -1) {
 				array[i + 1 - j] = array[i - j];
 				j++;
 			}

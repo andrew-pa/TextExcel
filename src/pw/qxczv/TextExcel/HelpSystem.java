@@ -59,7 +59,7 @@ public class HelpSystem {
 				"new 'number' + 'number' -- creates a new spreadsheet with specified dimensions\n"+
 				"sum 'cell region' -- calculate the sum of a rectangular region in the spreadsheet, defined by subtracting the names of two cells, like a2-c3\n"+
 				"avg 'cell region' -- calculate the average of a rectangular region in the spreadsheet, see above\n"+
-				"sort 'row numer' or sort \"Column Letter\" -- rewrites the spreadsheet putting the row/column in order left-right\top-bottom\n"+
+				"sort 'row number' or sort 'column Letter' -- rewrites the spreadsheet putting the row/column in order left-right\top-bottom; must be all numbers/strings\n"+
 				"file load/save: see topic files\n"
 				));
 		help_pages.add(new HelpPage("files", 
@@ -75,7 +75,7 @@ public class HelpSystem {
 		if(help_pages == null) init();
 		StringBuilder sb = new StringBuilder();
 		sb.append("-- HELP --\n\n");
-		sb.append("type \"help <topic>\" to access that topic's page\ntype \"help <topic> <page>\" to obtain pages beyond page 0\ntype \"help <topic> all\" to print all pages\n\n");
+		sb.append("type \"help <topic>\" to access that topic's page\ntype \"help <topic> all\" to print all pages\n\n");
 		sb.append("topics:\n");
 		for(HelpPage hp : help_pages) {
 			sb.append("\t");

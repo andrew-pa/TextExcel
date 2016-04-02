@@ -20,13 +20,9 @@ public class SubExpression extends Expression {
 		try {
 			Value lv = left.evaluate(s);
 			Value rv = right.evaluate(s);
-			if(lv.getClass() == CellReference.class && rv.getClass() == CellReference.class){
-				return new RegionReference(((CellReference)lv).colIdx, ((CellReference)lv).rowIdx, ((CellReference)rv).colIdx, ((CellReference)rv).rowIdx);
-			} else {
-				Number ln = (Number)(lv.resolve(s));
-				Number rn = (Number)(rv.resolve(s));
-				return new Number(ln.v - rn.v);
-			}
+			Number ln = (Number)(lv.resolve(s));
+			Number rn = (Number)(rv.resolve(s));
+			return new Number(ln.v - rn.v);
 		} catch (Exception e){
 			return new ErrorValue(e);
 		}

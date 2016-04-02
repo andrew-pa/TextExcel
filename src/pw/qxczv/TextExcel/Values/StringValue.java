@@ -13,7 +13,6 @@ public class StringValue extends Value {
 	@Override
 	public int compareTo(Value o) {
 		StringValue os = (StringValue)o;
-		if(os == null) return -1;
 		return v.compareTo(os.v);
 	}
 	

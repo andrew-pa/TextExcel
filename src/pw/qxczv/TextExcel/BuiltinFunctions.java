@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pw.qxczv.TextExcel.AST.Expression;
+import pw.qxczv.TextExcel.AST.Identifier;
+import pw.qxczv.TextExcel.AST.SubExpression;
+import pw.qxczv.TextExcel.Values.CellReference;
+import pw.qxczv.TextExcel.Values.ErrorValue;
 import pw.qxczv.TextExcel.Values.Function;
 import pw.qxczv.TextExcel.Values.LValue;
 import pw.qxczv.TextExcel.Values.TrueValue;
@@ -20,7 +24,11 @@ public class BuiltinFunctions {
 		}
 		@Override
 		public Value apply(Spreadsheet s, List<Expression> args) {
-			s.print();
+			try {
+				s.print();
+			} catch(StackOverflowError e) {
+				System.out.println("Error: Stack Overflow; Self-referencing formulas?");
+			}
 			return null;
 		}
 	}
@@ -97,8 +105,14 @@ public class BuiltinFunctions {
 		
 		@Override
 		public Value apply(Spreadsheet s, List<Expression> args){
-			RegionReference temp = (RegionReference) args.get(0).evaluate(s);
-			return temp.sum(s);
+			SubExpression sx = (SubExpression)args.get(0);
+			Value lv = sx.left.evaluate(s);
+			Value rv = sx.right.evaluate(s);
+			if(lv.getClass() == CellReference.class && rv.getClass() == CellReference.class){
+				return (new RegionReference(((CellReference)lv).colIdx, ((CellReference)lv).rowIdx, ((CellReference)rv).colIdx, ((CellReference)rv).rowIdx)).sum(s);
+			} else {
+				return new ErrorValue("Cannot find sum of anything but a cell region");
+			}
 		}
 	}
 	static class avgReg extends Function{
@@ -110,8 +124,14 @@ public class BuiltinFunctions {
 		
 		@Override
 		public Value apply(Spreadsheet s, List<Expression> args){
-			RegionReference temp = (RegionReference) args.get(0).evaluate(s);
-			return temp.average(s);
+			SubExpression sx = (SubExpression)args.get(0);
+			Value lv = sx.left.evaluate(s);
+			Value rv = sx.right.evaluate(s);
+			if(lv.getClass() == CellReference.class && rv.getClass() == CellReference.class){
+				return (new RegionReference(((CellReference)lv).colIdx, ((CellReference)lv).rowIdx, ((CellReference)rv).colIdx, ((CellReference)rv).rowIdx)).average(s);
+			} else {
+				return new ErrorValue("Cannot find sum of anything but a cell region");
+			}
 		}
 	}
 	static class newSheet extends Function{
@@ -210,12 +230,20 @@ public class BuiltinFunctions {
 		
 		@Override
 		public Value apply(Spreadsheet s, List<Expression> args){
-			Value temp = args.get(0).evaluate(s).resolve(s);
-			if(temp.getClass() == Number.class){
-				s.sort((int)(((Number) temp).v));
-			}else if(temp.getClass() == StringValue.class){
-				s.sort(((StringValue) temp).v.toUpperCase().charAt(0));
+			try {
+				if(args.get(0).getClass() == Identifier.class){
+					Identifier id = (Identifier)args.get(0);
+					s.sort(id.nm.toUpperCase().charAt(0));
+					return null;
+				}
+				Value temp = args.get(0).evaluate(s).resolve(s);
+				if(temp.getClass() == Number.class){
+					s.sort((int)(((Number) temp).v));
+				} 
+			} catch(ClassCastException e) {
+				System.out.println("Error: " + e.getMessage() + "\nEnsure that the row/column only contains numbers or strings\n");
 			}
+			
 			return null;
 		}
 	}
